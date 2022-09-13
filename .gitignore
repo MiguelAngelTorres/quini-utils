@@ -1,0 +1,9 @@
+
+# txt and xlsx files
+*.txt
+*.xlsx
+
+.idea
+.idea/**
+.Rhistory
+
