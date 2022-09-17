@@ -15,9 +15,11 @@
 #'
 #' @return prob_voted_table (data.table): The same prob_voted_table with em columns added.
 #'
-#' @export
 #' @examples
 #' get_em(prob_voted_table, 2600000, 10)
+#'
+#' @export
+#' @import data.table
 #'
 
 get_em <- function(prob_voted_table, money, level = 10){

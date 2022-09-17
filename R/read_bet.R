@@ -10,7 +10,6 @@
 #' @return bets (data.table): A table with 1 column named sign
 #' that contains the bets.
 #'
-#' @export
 #' @examples
 #' read_bet('file.txt')
 #'
@@ -18,6 +17,9 @@
 #' 1111111111111102
 #' 1211111111111102
 #' 11111111111X11M2
+#'
+#' @export
+#' @import data.table
 #'
 read_bet <- function(path){
   bets <- fread(path, header = F)

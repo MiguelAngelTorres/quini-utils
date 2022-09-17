@@ -19,10 +19,12 @@
 #' the undervoted and overvoted signs.
 #'
 #' @return prob_voted_table (data.table): the table with prob and voted columns.
-#' 
-#' @export
+#'
 #' @examples
 #' calculate_probabilies(matches)
+#'
+#' @export
+#' @import data.table
 #'
 calculate_probabilies <- function(matches, normalize = FALSE){
 
@@ -81,7 +83,9 @@ calculate_probabilies <- function(matches, normalize = FALSE){
 #'
 #' @examples
 #' get_voted_prob()
+#'
 #' @export
+#' @import data.table
 #'
 get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
   

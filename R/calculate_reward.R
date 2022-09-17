@@ -12,9 +12,11 @@
 #'
 #' @return prob_voted_table (data.table): The same prob_voted_table with reward columns added.
 #'
-#' @export
 #' @examples
 #' calculate_all_reward(prob_voted_table, 2600000)
+#'
+#' @export
+#' @import data.table
 #'
 calculate_all_reward <- function(prob_voted_table, money){
 
@@ -44,10 +46,12 @@ calculate_all_reward <- function(prob_voted_table, money){
 #'
 #' @return played (data.table): The same played table with min and max reward columns added.
 #'
-#' @export
 #' @examples
 #' results <- c('x','1','x','2','', '', '', '','x','2','1','','','')
 #' min_max_rewards <- calculate_min_max_reward(prob_voted_table, selected, results)
+#'
+#' @export
+#' @import data.table
 #'
 calculate_min_max_reward <- function(prob_voted_table, played, results){
 
@@ -109,9 +113,11 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' @return return (data.table): A table with one column named sign with the signs that
 #' have dist matches different.
 #'
-#' @export
 #' @examples
 #' signs_with_distance(dist = 3, mysign='11111111111111')
+#'
+#' @export
+#' @import data.table
 #'
 signs_with_distance <- function(out, this_id, dist, mysign){
 

@@ -13,9 +13,11 @@
 #'
 #' @return is_diff (boolean): Wheter if new has the two conditions or not
 #'
-#' @export
 #' @examples
 #' is_diff_sign(data, selected, new, min_diff, total_diff)
+#'
+#' @export
+#' @import data.table
 #'
 is_diff_sign <- function(data, selected, new, min_diff, total_diff){
   
@@ -53,9 +55,11 @@ is_diff_sign <- function(data, selected, new, min_diff, total_diff){
 #'
 #' @return selected (data.table): Final bets selected
 #'
-#' @export
 #' @examples
 #' best_n_with_diff(data, nsigns, diff)
+#'
+#' @export
+#' @import data.table
 #'
 best_n_with_diff <- function(data, nsigns, diff){
   

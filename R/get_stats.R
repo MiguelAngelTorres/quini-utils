@@ -12,9 +12,11 @@
 #' @return stats (data.table): A table with 3 columns, the percentage
 #' played for each sign on each match.
 #'
-#' @export
 #' @examples
 #' get_played_porcentage(selected)
+#'
+#' @export
+#' @import data.table
 #'
 get_played_porcentage <- function(selected){
   

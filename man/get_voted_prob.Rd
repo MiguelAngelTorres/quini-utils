@@ -31,4 +31,5 @@ with n the number of allow_fails (typically 4)
 }
 \examples{
 get_voted_prob()
+
 }
