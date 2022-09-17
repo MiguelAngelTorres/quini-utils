@@ -80,7 +80,7 @@ calculate_probabilies <- function(matches, normalize = FALSE){
 #' @return prob_voted_table_splited (data.table): the prob_voted table splited by rows.
 #'
 #' @examples
-#' get_real_prob()
+#' get_voted_prob()
 #' @export
 #'
 get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
@@ -110,7 +110,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
                                                     voted = voted * this_match$voted_no_2, fails = fails + 1)])
     
    out <-out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-   return <- get_real_prob(out = out, this_id = next_id, allow_fails = allow_fails)
+   return <- get_voted_prob(out = out, this_id = next_id, allow_fails = allow_fails)
     
     return(return)
     
@@ -154,7 +154,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
                                      voted = this_match$voted_2, fails = 0))
       
       out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-      return <- get_real_prob(out = out, this_id = next_id, allow_fails = allow_fails)
+      return <- get_voted_prob(out = out, this_id = next_id, allow_fails = allow_fails)
     
     } else {
       
@@ -172,7 +172,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
                                      voted = this_match$voted_no_2, fails = 1))
       
       out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-      return <- get_real_prob(out = out, this_id = next_id, allow_fails = allow_fails)
+      return <- get_voted_prob(out = out, this_id = next_id, allow_fails = allow_fails)
       
     }
     
