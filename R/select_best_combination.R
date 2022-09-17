@@ -1,6 +1,4 @@
 
-library(stats)
-
 #' Function to check if a sign has some distance conditions
 #'
 #' The function returns true if the new sign has the next two conditions:

@@ -1,6 +1,4 @@
 
-library(rvest)
-
 #' Scrapper function to get matches data
 #'
 #' The function reads the html placed in the param url
