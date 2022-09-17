@@ -4,12 +4,9 @@ Title: Quiniela utils
 Version: 0.0.1
 Depends:
     R (>= 4.2.0)
-    data.table (>= 1.14.3)
-    rvest (>= 1.0.2)
-    stats
 Imports:
-    data.table,
-    rvest,
+    data.table (>= 1.14.3),
+    rvest (>= 1.0.2),
     stats
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
