@@ -12,9 +12,11 @@
 #'
 #' @return matches (data.table): A table with the matches information
 #'
-#' @export
 #' @examples
 #' get_data('https://quinielaticas.com/')
+#'
+#' @export
+#' @import data.table
 #'
 get_data <- function(url){
   
