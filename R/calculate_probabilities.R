@@ -81,6 +81,7 @@ calculate_probabilies <- function(matches, normalize = FALSE){
 #'
 #' @examples
 #' get_real_prob()
+#' @export
 #'
 get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
   
@@ -195,6 +196,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
 #'
 #' @examples
 #' get_prob_with_fails(table_prob_splited)
+#' @export
 #'
 get_prob_with_fails <- function(prob_voted_table_splited){
   

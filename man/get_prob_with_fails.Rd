@@ -19,5 +19,4 @@ about the prob_voted table.
 }
 \examples{
 get_prob_with_fails(table_prob_splited)
-
 }
