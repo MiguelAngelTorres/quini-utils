@@ -2,11 +2,15 @@
 # Historical versions
 
 ## Future version
-Added
+Added:
 <ul>
 <li>Added rentability function</li>
 </ul>
 
+Small bugfixes:
+<ul>
+<li>Roxygen now reads imports to solve dependencies</li>
+</ul>
 
 ## 0.0.1
 Added
