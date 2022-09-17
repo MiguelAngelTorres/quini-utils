@@ -30,5 +30,5 @@ That way, you will have 4.7M * (n+1) rows,
 with n the number of allow_fails (typically 4)
 }
 \examples{
-get_real_prob()
+get_voted_prob()
 }
