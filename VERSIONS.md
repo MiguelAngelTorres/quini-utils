@@ -3,9 +3,10 @@
 
 ## Future version
 Features:
-- Added **rentability function**.
-- Added **probability of reward function**.
-- Added **filter possible results function**. This was an existing code duplicated on some functions. Now
+- Added **rentability function**, (get_rentability).
+- Added **probability of reward function**, calculate_probability_of_reward().
+- Added **probability of ROI function**, calculate_probability_of_roi().
+- Added **filter possible results function**, filter_possible_results(). This was an existing code duplicated on some functions. Now
 it is converted to a usable function.
 
 

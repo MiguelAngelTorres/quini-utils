@@ -129,3 +129,33 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
   return(data.table(prob_reward = probs , reward = rewards))
 
 }
+
+
+#' Calculate the probability of been rewarded with more than the invested amount
+#'
+#' Given a set of matches which result is already known, a set of bets,
+#' the function returns the probability of been
+#' rewarded with more than the invested amount.
+#'
+#'
+#' @param prob_voted_table (data.table): the prob_voted table with the expected reward
+#' calculated. Watch calculate_all_reward function for more information about the reward column.
+#' @param played (data.table): A column named sign with the character result is expected
+#' @param results (list of characters): A list with 14 characters with the known results,
+#' '1','x' or '2' for each element. The unknown results must be represented with ''.
+#'
+#' @return prob_of_reward (data.table): A table with two columns, the rewards and the probability
+#' of earning more of the invested amount (number of bets * 0.75).
+#'
+#' @examples
+#' results <- c('x','1','x','2','', '', '', '','x','2','1','','','')
+#' prob_of_reward <- calculate_probability_of_roi(prob_voted_table, played, results)
+#'
+#' @export
+#' @import data.table
+#'
+calculate_probability_of_roi <- function(prob_voted_table, played, results){
+
+  return(calculate_probability_of_reward(prob_voted_table, played, results, rewards = nrow(played)*0.75))
+
+}
