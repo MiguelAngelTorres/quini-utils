@@ -8,7 +8,7 @@ calculate_min_max_reward(prob_voted_table, played, results)
 }
 \arguments{
 \item{prob_voted_table}{(data.table): the prob_voted table with the expected reward
-calculated}
+calculated. Watch calculate_all_reward function for more information about the reward column.}
 
 \item{played}{(data.table): A column named sign with the character result is expected}
 
