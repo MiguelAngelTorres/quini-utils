@@ -3,13 +3,12 @@ Type: Package
 Title: Quiniela utils
 Version: 0.0.1
 Depends:
-    R (>= 4.2.0)
+    R (= 4.2.1)
 Imports:
-    data.table (>= 1.14.3),
-    rvest (>= 1.0.2),
+    data.table (= 1.14.3),
+    rvest (= 1.0.5),
     stats
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-LazyData: true
 NeedsCompilation: yes
 RoxygenNote: 7.2.1
