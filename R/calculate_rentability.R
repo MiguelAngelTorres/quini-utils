@@ -30,7 +30,12 @@ get_rentability <- function(prob_voted_table, importance = 1.0){
                          rent_11 = (prob_11 ^ importance) / voted_11,
                          rent_10 = (prob_10 ^ importance) / voted_10)]
 
-  prob_voted_table[,':='(rent = rent_14_f * (0.16^importance) + rent_13_f * (0.075^importance) + rent_12_f * (0.075^importance) + rent_11_f * (0.075^importance)+ rent_10_f * (0.09^importance))]
+  prob_voted_table[,':='(rent = rent_14 * (0.16^importance) +
+    rent_13 * (0.075^importance) +
+    rent_12 * (0.075^importance) +
+    rent_11 * (0.075^importance) +
+    rent_10 * (0.09^importance)
+  )]
 
   return(prob_voted_table)
   
