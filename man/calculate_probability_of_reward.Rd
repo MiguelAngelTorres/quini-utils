@@ -8,12 +8,13 @@ calculate_probability_of_reward(
   prob_voted_table,
   played,
   results,
-  rewards = c(10, 50, 100, 500, 1000, 5000)
+  rewards = c(10, 50, 100, 500, 1000, 5000),
+  money
 )
 }
 \arguments{
-\item{prob_voted_table}{(data.table): the prob_voted table with the expected reward
-calculated. Watch calculate_all_reward function for more information about the reward column.}
+\item{prob_voted_table}{(data.table): the prob_voted table. Watch calculate_probabilities
+function for further information.}
 
 \item{played}{(data.table): A column named sign with the character result is expected}
 
@@ -22,6 +23,8 @@ calculated. Watch calculate_all_reward function for more information about the r
 
 \item{rewards}{(list of numeric): The list with the rewards whose probability is going to
 be calculated. Default value c(10,50,100,500,1000,5000).}
+
+\item{money}{(numeric): the total money played by all the bets}
 }
 \value{
 prob_of_reward (data.table): A table with two columns, the rewards and the probability

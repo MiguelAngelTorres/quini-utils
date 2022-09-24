@@ -7,7 +7,7 @@
 get_em(prob_voted_table, money, level = 10)
 }
 \arguments{
-\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilites
+\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilities
 function for further information.}
 
 \item{money}{(numeric): the total money played by all the bets}

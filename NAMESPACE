@@ -3,7 +3,7 @@
 export(best_n_with_diff)
 export(calculate_all_reward)
 export(calculate_min_max_reward)
-export(calculate_probabilies)
+export(calculate_probabilities)
 export(calculate_probability_of_reward)
 export(calculate_probability_of_roi)
 export(filter_possible_results)

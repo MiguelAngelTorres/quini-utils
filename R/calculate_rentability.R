@@ -10,7 +10,7 @@
 #' end with a low real probability bet selection), a normalization parameter called importance was added.
 #' Importance = 1 is the raw rentability.
 #'
-#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilites 
+#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilities
 #' function for further information.
 #' @param importance (numeric): the importance given to the probability.
 #' The recommended values are between 1 and 2. Default importance = 1

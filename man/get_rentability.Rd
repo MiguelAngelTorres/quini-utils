@@ -7,7 +7,7 @@
 get_rentability(prob_voted_table, importance = 1)
 }
 \arguments{
-\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilites
+\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilities
 function for further information.}
 
 \item{importance}{(numeric): the importance given to the probability.

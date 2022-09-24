@@ -6,7 +6,7 @@
 #' the sign 111...111 and reward_11 is 20, it means that if the final result is 1 
 #' in all matches and you have 11 matches with 1 you will earn 20 euros.
 #'
-#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilites 
+#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilities
 #' function for further information.
 #' @param money (numeric): the total money played by all the bets
 #'
@@ -83,7 +83,7 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' rewarded with more than every amount.
 #'
 #'
-#' @param prob_voted_table (data.table): the prob_voted table. Watch calculate_probabilites
+#' @param prob_voted_table (data.table): the prob_voted table. Watch calculate_probabilities
 #' function for further information.
 #' @param played (data.table): A column named sign with the character result is expected
 #' @param results (list of characters): A list with 14 characters with the known results,
@@ -134,7 +134,7 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 
   probs = lapply(rewards, FUN = filter_rewards)
 
-  return(data.table(prob_reward = probs , reward = rewards))
+  return(data.table(prob_reward = as.numeric(probs) , reward = rewards))
 
 }
 
@@ -146,8 +146,8 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 #' rewarded with more than the invested amount.
 #'
 #'
-#' @param prob_voted_table (data.table): the prob_voted table with the expected reward
-#' calculated. Watch calculate_all_reward function for more information about the reward column.
+#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilities
+#' function for further information.
 #' @param played (data.table): A column named sign with the character result is expected
 #' @param results (list of characters): A list with 14 characters with the known results,
 #' '1','x' or '2' for each element. The unknown results must be represented with ''.

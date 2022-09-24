@@ -7,7 +7,7 @@
 calculate_all_reward(prob_voted_table, money)
 }
 \arguments{
-\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilites
+\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilities
 function for further information.}
 
 \item{money}{(numeric): the total money played by all the bets}

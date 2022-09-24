@@ -4,16 +4,18 @@
 \alias{calculate_probability_of_roi}
 \title{Calculate the probability of been rewarded with more than the invested amount}
 \usage{
-calculate_probability_of_roi(prob_voted_table, played, results)
+calculate_probability_of_roi(prob_voted_table, played, results, money)
 }
 \arguments{
-\item{prob_voted_table}{(data.table): the prob_voted table with the expected reward
-calculated. Watch calculate_all_reward function for more information about the reward column.}
+\item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilities
+function for further information.}
 
 \item{played}{(data.table): A column named sign with the character result is expected}
 
 \item{results}{(list of characters): A list with 14 characters with the known results,
 '1','x' or '2' for each element. The unknown results must be represented with ''.}
+
+\item{money}{(numeric): the total money played by all the bets}
 }
 \value{
 prob_of_reward (data.table): A table with two columns, the rewards and the probability

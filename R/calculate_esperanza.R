@@ -5,7 +5,7 @@
 #' the probability of that event to happen. The param level controls the
 #' events to be calculated
 #'
-#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilites 
+#' @param prob_voted_table (data.table): the prob_voted table to work with. Watch calculate_probabilities
 #' function for further information.
 #' @param money (numeric): the total money played by all the bets
 #' @param level (integer): The minimum EM to be calculted. For example,

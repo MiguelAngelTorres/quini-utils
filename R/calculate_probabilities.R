@@ -21,12 +21,12 @@
 #' @return prob_voted_table (data.table): the table with prob and voted columns.
 #'
 #' @examples
-#' calculate_probabilies(matches)
+#' calculate_probabilities(matches)
 #'
 #' @export
 #' @import data.table
 #'
-calculate_probabilies <- function(matches, normalize = FALSE){
+calculate_probabilities <- function(matches, normalize = FALSE){
 
   if(!normalize){
     matches[,':='(
