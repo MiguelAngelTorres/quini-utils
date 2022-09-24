@@ -124,7 +124,9 @@ filter_possible_results <- function(prob_voted_table, results){
   possible_results = eval(parse(text=paste0("prob_voted_table[",str_eval,"]")))
 
   # Delete auxiliar columns
-  eval(parse(text=paste0("prob_voted_table[,':='(", columns_signs," = NULL)]")))
+  if(length(columns_signs)>0){
+    eval(parse(text=paste0("prob_voted_table[,':='(", columns_signs," = NULL)]")))
+  }
 
   return(possible_results)
 }
