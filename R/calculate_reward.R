@@ -90,6 +90,7 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' '1','x' or '2' for each element. The unknown results must be represented with ''.
 #' @param rewards (list of numeric): The list with the rewards whose probability is going to
 #' be calculated. Default value c(10,50,100,500,1000,5000).
+#' @param money (numeric): the total money played by all the bets
 #'
 #' @return prob_of_reward (data.table): A table with two columns, the rewards and the probability
 #' of earning more of that rewards.
@@ -101,7 +102,7 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' @export
 #' @import data.table
 #'
-calculate_probability_of_reward <- function(prob_voted_table, played, results, rewards = c(10,50,100,500,1000,5000)){
+calculate_probability_of_reward <- function(prob_voted_table, played, results, rewards = c(10,50,100,500,1000,5000), money){
 
   possible_results <- filter_possible_results(prob_voted_table, results)
   possible_results[,':='(num_prizes_14 = 0, num_prizes_13 = 0, num_prizes_12 = 0, num_prizes_11 = 0, num_prizes_10 = 0)]
@@ -150,6 +151,7 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 #' @param played (data.table): A column named sign with the character result is expected
 #' @param results (list of characters): A list with 14 characters with the known results,
 #' '1','x' or '2' for each element. The unknown results must be represented with ''.
+#' @param money (numeric): the total money played by all the bets
 #'
 #' @return prob_of_reward (data.table): A table with two columns, the rewards and the probability
 #' of earning more of the invested amount (number of bets * 0.75).
@@ -161,8 +163,8 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 #' @export
 #' @import data.table
 #'
-calculate_probability_of_roi <- function(prob_voted_table, played, results){
+calculate_probability_of_roi <- function(prob_voted_table, played, results, money){
 
-  return(calculate_probability_of_reward(prob_voted_table, played, results, rewards = nrow(played)*0.75))
+  return(calculate_probability_of_reward(prob_voted_table, played, results, rewards = nrow(played)*0.75), money)
 
 }
