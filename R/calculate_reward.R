@@ -83,8 +83,8 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' rewarded with more than every amount.
 #'
 #'
-#' @param prob_voted_table (data.table): the prob_voted table with the expected reward
-#' calculated. Watch calculate_all_reward function for more information about the reward column.
+#' @param prob_voted_table (data.table): the prob_voted table. Watch calculate_probabilites
+#' function for further information.
 #' @param played (data.table): A column named sign with the character result is expected
 #' @param results (list of characters): A list with 14 characters with the known results,
 #' '1','x' or '2' for each element. The unknown results must be represented with ''.
@@ -114,6 +114,13 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
       eval(parse(text=paste0("possible_results[prizes, on=.(sign), num_prizes_", num, " := num_prizes_", num, " + 1]")))
     }
   }
+
+  possible_results[ , ':='(reward_14 = (money*0.16) / (num_prizes_14+(voted_14*(money/0.75))),
+                           reward_13 = (money*0.075) / (num_prizes_13+(voted_13*(money/0.75))),
+                           reward_12 = (money*0.075) / (num_prizes_12+(voted_12*(money/0.75))),
+                           reward_11 = (money*0.075) / (num_prizes_11+(voted_11*(money/0.75))),
+                           reward_10 = (money*0.09) / (num_prizes_10+(voted_10*(money/0.75)))
+  )]
 
   possible_results[,':='(total_reward = num_prizes_14 * reward_14 + num_prizes_13 * reward_13 +
                                         num_prizes_12 * reward_12 + num_prizes_11 * reward_11 +
