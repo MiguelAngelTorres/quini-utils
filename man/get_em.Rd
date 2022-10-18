@@ -4,7 +4,7 @@
 \alias{get_em}
 \title{Calculate EM for a given prob-voted table}
 \usage{
-get_em(prob_voted_table, money, level = 10)
+get_em(prob_voted_table, money, level = 10, optimization = FALSE)
 }
 \arguments{
 \item{prob_voted_table}{(data.table): the prob_voted table to work with. Watch calculate_probabilities
@@ -16,6 +16,10 @@ function for further information.}
 with 'level = 12', EM14, EM13 and EM12 will be calculated. That is the
 EM of getting 14, 13 and 12 right matches. Note that level must be an integer
 between 10 and 14.}
+
+\item{optimization}{(boolean): True to enable optimization. Optimization has the same output,
+but decrease the time it takes to calculate by using more RAM. Note that if the process requires
+more RAM than the available, the program may crush.}
 }
 \value{
 prob_voted_table (data.table): The same prob_voted_table with em columns added.
