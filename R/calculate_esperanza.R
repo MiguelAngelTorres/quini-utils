@@ -65,6 +65,8 @@ get_em <- function(prob_voted_table, money, level = 10, optimization = FALSE){
       }
     }
     
+    group_column <- get_group_cols(singles_signs, column_signs, c())
+    
     eval(parse(text=paste0("prob_voted_table[,':='(prob_i_j_h_k = sum(prob_14), aux_10_i_j_h_k = sum(aux_mult_10), aux_11_i_j_h = sum(aux_mult_11), aux_12_i_j = sum(aux_mult_12), aux_13_i = sum(aux_mult_13)),by=.(",
                            group_column,")]", collapse='')))
     
