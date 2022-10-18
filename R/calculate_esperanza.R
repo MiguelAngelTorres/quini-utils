@@ -68,34 +68,34 @@ get_em <- function(prob_voted_table, money, level = 10, optimization = FALSE){
     group_column <- get_group_cols(singles_signs, column_signs, c())
     
     eval(parse(text=paste0("prob_voted_table[,':='(prob_i_j_h_k = sum(prob_14), aux_10_i_j_h_k = sum(aux_mult_10), aux_11_i_j_h = sum(aux_mult_11), aux_12_i_j = sum(aux_mult_12), aux_13_i = sum(aux_mult_13)),by=.(",
-                           group_column,")]", collapse='')))
+                           paste0(group_column,collapse=','),")]", collapse='')))
     
     for(i in c(1:14)){
       group_column <- get_group_cols(singles_signs, column_signs, c(i))
       
       eval(parse(text=paste0("prob_voted_table[,':='(prob_j_h_k = sum(prob_14), aux_10_j_h_k = sum(aux_mult_11), aux_11_j_h = sum(aux_mult_11), aux_12_j = sum(aux_mult_12), aux_13= sum(aux_mult_13)),by=.(",
-                             group_column,")]", collapse='')))
+                             paste0(group_column,collapse=','),")]", collapse='')))
       
       if(get_em_12 && i < 14){
         for(j in c((i+1):14)){
           group_column <- get_group_cols(singles_signs, column_signs, c(i, j))
           
           eval(parse(text=paste0("prob_voted_table[,':='(prob_h_k = sum(prob_14), aux_10_h_k = sum(aux_mult_10), aux_11_h = sum(aux_mult_11), aux_12 = sum(aux_mult_12)),by=.(",
-                                 group_column,")]", collapse='')))
+                                 paste0(group_column,collapse=','),")]", collapse='')))
           
           if(get_em_11 && j < 14){
             for(h in c((j+1):14)){
               group_column <- get_group_cols(singles_signs, column_signs, c(i, j, h))
               
               eval(parse(text=paste0("prob_voted_table[,':='(prob_k = sum(prob_14), aux_10_k = sum(aux_mult_10), aux_11 = sum(aux_mult_11)),by=.(",
-                                     group_column,")]", collapse='')))
+                                     paste0(group_column,collapse=','),")]", collapse='')))
               
               if(get_em_10 && h < 14){
                 for(k in c((h+1):14)){
                   group_column <- get_group_cols(singles_signs, column_signs, c(i, j, h, k))
                   
                   eval(parse(text=paste0("prob_voted_table[,':='(prob = sum(prob_14), aux_10 = sum(aux_mult_10)),by=.(",
-                                         group_column,")]", collapse='')))
+                                         paste0(group_column,collapse=','),")]", collapse='')))
   
                   
                   prob_voted_table[,':='(sum_prob_10 = sum_prob_10 + prob + prob_i_j_h_k,
