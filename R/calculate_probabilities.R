@@ -15,8 +15,6 @@
 #' @param matches (data.table): The real probability of each sign and the voted
 #' percentage of each sign. Expected, at least, 6 columns named voted_1, voted_x,
 #' voted_2, real_1, real_x and real_2.
-#' @param normalize (boolean): TRUE if you want to apply a normalization over
-#' the undervoted and overvoted signs.
 #'
 #' @return prob_voted_table (data.table): the table with prob and voted columns.
 #'
@@ -26,21 +24,12 @@
 #' @export
 #' @import data.table
 #'
-calculate_probabilities <- function(matches, normalize = FALSE){
+calculate_probabilities <- function(matches){
 
-  if(!normalize){
-    matches[,':='(
+  matches[,':='(
       voted_1 = voted_1/100, voted_x = voted_x/100, voted_2 = voted_2/100,
       real_1 = real_1/100, real_x = real_x/100, real_2 = real_2/100
   )]
-  }else{
-    matches[,':='(
-      voted_1 = (ifelse(voted_1>33, 33 + ((voted_1-33)*64/67), 3 + (voted_1*30/33)))/100,
-      voted_x = (ifelse(voted_x>33, 33 + ((voted_x-33)*64/67), 3 + (voted_x*30/33)))/100,
-      voted_2 = (ifelse(voted_2>33, 33 + ((voted_2-33)*64/67), 3 + (voted_2*30/33)))/100,
-      real_1 = real_1/100, real_x = real_x/100, real_2 = real_2/100
-    )]
-  }
 
 
   matches[,':='(

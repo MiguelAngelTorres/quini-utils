@@ -3,6 +3,7 @@
 
 ## Future version
 Features:
+- Added **two functions to fix matches probabilities**: normalize_voted() and increase_real_by_voted.
 - Added **rentability function**, (get_rentability).
 - Added **probability of reward function**, calculate_probability_of_reward().
 - Added **probability of ROI function**, calculate_probability_of_roi().

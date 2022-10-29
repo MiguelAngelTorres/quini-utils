@@ -4,15 +4,12 @@
 \alias{calculate_probabilities}
 \title{Calculate the prob_voted table}
 \usage{
-calculate_probabilities(matches, normalize = FALSE)
+calculate_probabilities(matches)
 }
 \arguments{
 \item{matches}{(data.table): The real probability of each sign and the voted
 percentage of each sign. Expected, at least, 6 columns named voted_1, voted_x,
 voted_2, real_1, real_x and real_2.}
-
-\item{normalize}{(boolean): TRUE if you want to apply a normalization over
-the undervoted and overvoted signs.}
 }
 \value{
 prob_voted_table (data.table): the table with prob and voted columns.
