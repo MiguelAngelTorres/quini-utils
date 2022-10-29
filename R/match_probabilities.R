@@ -22,9 +22,9 @@
 increase_real_by_voted <- function(matches, index){
 
   matches[index, ':='(
-    real_1 = (0.9*real_1 + 0.1*voted_1),
-    real_x = (0.9*real_x + 0.1*voted_x),
-    real_2 = (0.9*real_2 + 0.1*voted_2)
+    real_1 = (0.85*real_1 + 0.15*voted_1),
+    real_x = (0.85*real_x + 0.15*voted_x),
+    real_2 = (0.85*real_2 + 0.15*voted_2)
   )]
 
   return(matches)
