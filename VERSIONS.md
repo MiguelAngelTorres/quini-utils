@@ -2,6 +2,10 @@
 # Historical versions
 
 ## Future version
+
+
+## 1.0.0
+
 Features:
 - Added **random match generator**: get_random_matches().
 - Added **two functions to fix matches probabilities**: normalize_voted() and increase_real_by_voted().
