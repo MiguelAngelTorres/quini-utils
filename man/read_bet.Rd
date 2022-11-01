@@ -18,12 +18,14 @@ The file must be a .txt file with one bet per row.
 Every bet must be composed by 14 characters with 1,2 or x
 and 2 more with the 15th match, indicating 0,1,2 or M
 }
-\examples{
-read_bet('file.txt')
-
+\details{
 A valid example of file.txt with 3 bets would be:
 1111111111111102
 1211111111111102
 11111111111X11M2
+}
+\examples{
+read_bet('file.txt')
+
 
 }
