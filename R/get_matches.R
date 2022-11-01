@@ -13,12 +13,12 @@
 #' @return matches (data.table): A table with the matches information
 #'
 #' @examples
-#' get_data('https://quinielaticas.com/')
+#' get_data_quinielaticas('https://quinielaticas.com/')
 #'
 #' @export
 #' @import data.table
 #'
-get_data <- function(url){
+get_data_quinielaticas <- function(url){
   
   # get url with table
   html <- read_html(url)
@@ -48,4 +48,51 @@ get_data <- function(url){
   
   return(matches)
   
+}
+
+
+
+#' Function to get random matches data
+#'
+#' The function generates real and voted random probabilities
+#'
+#' @param uniform (boolean): If TRUE, all real and voted probabilities returned are
+#' equal (0.33). Default value is FALSE.
+#'
+#' @return matches (data.table): A table with the random matches information
+#'
+#' @examples
+#' get_random_matches()
+#'
+#' @export
+#' @import data.table
+#'
+get_random_matches <- function(uniform = FALSE){
+
+  if(uniform){
+
+    matches <- data.table(partido = 1:14,
+                          real_1 = rep(1/3, 14),
+                          real_x = rep(1/3, 14),
+                          real_2 = rep(1/3, 14),
+                          voted_1 = rep(1/3, 14),
+                          voted_x = rep(1/3, 14),
+                          voted_2 = rep(1/3, 14)
+    )
+
+  }else{
+
+    matches <- data.table(partido = 1:14,
+                          real_1 = runif(14, 5, 80),
+                          voted_1 = runif(14, 5, 80)
+    )
+    matches[,':='(real_x = runif(1, 5, 90 - real_1),
+                  voted_x = runif(1, 5, 90 - voted_1)), by=partido]
+    matches[,':='(real_2 = 100 - real_1 - real_x,
+                  voted_2 = 100 - voted_1 - voted_x)]
+
+  }
+
+  return(matches[,.(real_1, real_x, real_2, voted_1, voted_x, voted_2)])
+
 }
