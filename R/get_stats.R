@@ -13,6 +13,8 @@
 #' played for each sign on each match.
 #'
 #' @examples
+#' library(data.table)
+#' selected <- data.table(sign = c('11111111111111', 'x1111111111111', '21111111111111'))
 #' get_played_porcentage(selected)
 #'
 #' @export

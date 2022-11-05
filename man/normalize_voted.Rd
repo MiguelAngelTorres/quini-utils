@@ -21,6 +21,7 @@ you can use this function. Note that this is a simple normalization,
 it has no prediction component.
 }
 \examples{
+matches <- get_random_matches()
 normalized_voted(matches)
 
 }

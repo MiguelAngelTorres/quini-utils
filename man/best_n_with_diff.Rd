@@ -25,6 +25,8 @@ n very similar bets. This function provides a method to take splited bets
 with different signs in different matches.
 }
 \examples{
-best_n_with_diff(data, nsigns, diff)
+library(data.table)
+data <- data.table(sign = c('11111111111111', '11111111112222', '11122222111111'))
+best_n_with_diff(data, 2, 5)
 
 }

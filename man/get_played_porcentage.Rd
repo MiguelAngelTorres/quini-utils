@@ -21,6 +21,8 @@ function will return a number close to 1 in the voted sign and a number close
 to 0 in the other two signs.
 }
 \examples{
+library(data.table)
+selected <- data.table(sign = c('11111111111111', 'x1111111111111', '21111111111111'))
 get_played_porcentage(selected)
 
 }

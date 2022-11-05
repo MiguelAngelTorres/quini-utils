@@ -16,7 +16,7 @@ calculate_probability_of_reward(
 \item{prob_voted_table}{(data.table): the prob_voted table. Watch calculate_probabilities
 function for further information.}
 
-\item{played}{(data.table): A column named sign with the character result is expected}
+\item{played}{(data.table): A table with a column named sign with the character result is expected}
 
 \item{results}{(list of characters): A list with 14 characters with the known results,
 '1','x' or '2' for each element. The unknown results must be represented with ''.}
@@ -36,7 +36,11 @@ and a list of amounts, the function returns the probability of been
 rewarded with more than every amount.
 }
 \examples{
-results <- c('x','1','x','2','', '', '', '','x','2','1','','','')
+library(data.table)
+matches <- get_random_matches()
+prob_voted_table <- calculate_probabilities(matches)
+played <- data.table(sign = c('11111111111111', '11211111111111'))
+results <- c('1','1','1','1','', '', '', '','','','','','','')
 prob_of_reward <- calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20))
 
 }

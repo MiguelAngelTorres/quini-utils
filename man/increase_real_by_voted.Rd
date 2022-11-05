@@ -23,6 +23,7 @@ real probability given by betting houses. To fix that you can
 use this function.
 }
 \examples{
+matches <- get_random_matches()
 increase_real_by_voted(matches, c(4,7))
 
 }

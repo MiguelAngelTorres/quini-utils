@@ -7,8 +7,7 @@
 filter_possible_results(prob_voted_table, results)
 }
 \arguments{
-\item{prob_voted_table}{(data.table): the prob_voted table with the expected reward
-calculated. Watch calculate_all_reward function for more information about the reward column.}
+\item{prob_voted_table}{(data.table): a table with a column sign that represents all bets to filter.}
 
 \item{results}{(list of characters): A list with 14 characters with the known results,
 '1','x' or '2' for each element. The unknown results must be represented with ''.}
@@ -22,7 +21,9 @@ the filtered prob_voted_table with only the final results that
 are possible.
 }
 \examples{
-results <- c('x','1','x','2','', '', '', '','x','2','1','','','')
-possible_results <- filter_possible_results(prob_voted_table, results)
+library(data.table)
+my_table <- data.table(sign = c('11111111111111', '1111111111111x'))
+results <- c('','','','','', '', '', '','','','','','','x')
+possible_results <- filter_possible_results(my_table, results)
 
 }

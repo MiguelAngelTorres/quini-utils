@@ -25,7 +25,10 @@ A valid example of file.txt with 3 bets would be:
 11111111111X11M2
 }
 \examples{
-read_bet('file.txt')
+fileConn<-file("file.txt")
+writeLines(c('1111111111111102', '11111111111X11M2'), fileConn)
+close(fileConn)
+read_bet("file.txt")
 
 
 }

@@ -22,6 +22,9 @@ the sign 111...111 and reward_11 is 20, it means that if the final result is 1
 in all matches and you have 11 matches with 1 you will earn 20 euros.
 }
 \examples{
+library(data.table)
+matches <- get_random_matches()
+prob_voted_table <- calculate_probabilities(matches)
 calculate_all_reward(prob_voted_table, 2600000)
 
 }

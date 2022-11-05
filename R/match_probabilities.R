@@ -14,6 +14,7 @@
 #' real_1, real_x and real_2 changed with voted columns.
 #'
 #' @examples
+#' matches <- get_random_matches()
 #' increase_real_by_voted(matches, c(4,7))
 #'
 #' @export
@@ -45,6 +46,7 @@ increase_real_by_voted <- function(matches, index){
 #' voted columns normalized
 #'
 #' @examples
+#' matches <- get_random_matches()
 #' normalized_voted(matches)
 #'
 #' @export
