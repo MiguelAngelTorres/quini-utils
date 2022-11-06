@@ -2,6 +2,11 @@
 # Historical versions
 
 ## Future version
+Features:
+
+Small bugfixes:
+- Fixed a bug in signs_with_distance() that produce many warnings for no reason.
+
 
 
 ## 1.0.0

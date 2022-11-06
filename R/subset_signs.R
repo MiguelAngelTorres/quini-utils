@@ -37,9 +37,11 @@ signs_with_distance <- function(out, this_id, dist, mysign){
 
     out_allowed_fails <- out[fails < dist]
 
-    out <- rbind(out[,.(sign = paste(sign, this_sign, sep=''), fails)],
-                 out_allowed_fails[,.(sign = paste(sign, signs_not[1], sep=''), fails = fails + 1)],
-                 out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
+    if(nrow(out_allowed_fails) > 0){
+      out <- rbind(out[,.(sign = paste(sign, this_sign, sep=''), fails)],
+                   out_allowed_fails[,.(sign = paste(sign, signs_not[1], sep=''), fails = fails + 1)],
+                   out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
+    }
 
     return <- signs_with_distance(out = out, this_id = next_id, dist = dist, mysign)
 
@@ -51,9 +53,11 @@ signs_with_distance <- function(out, this_id, dist, mysign){
 
     out_allowed_fails <- out[fails < dist]
 
-    out <- rbind(out[,.(sign = paste(sign, this_sign, sep=''), fails)],
-                 out_allowed_fails[,.(sign = paste(sign, signs_not[1], sep=''), fails = fails + 1)],
-                 out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
+    if(nrow(out_allowed_fails) > 0){
+      out <- rbind(out[,.(sign = paste(sign, this_sign, sep=''), fails)],
+                   out_allowed_fails[,.(sign = paste(sign, signs_not[1], sep=''), fails = fails + 1)],
+                   out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
+    }
 
     return(out[fails == dist])
 
