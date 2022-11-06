@@ -112,26 +112,21 @@ signs_with_distance <- function(out, this_id, dist, mysign){
 #'
 filter_possible_results <- function(prob_voted_table, results){
 
-  str_eval = 'TRUE'
-  columns_signs <- c()
+  if(results[1] == ''){
+    signs_posible <- c("1","x","2")
+  }else{
+    signs_posible <- results[1]
+  }
 
-  for(i in c(1:14)){
-    if(results[i] != ''){
-
-      eval(parse(text = paste0("prob_voted_table[,':='(sign_" ,i, " = substr(sign,",i,",",i,"))]")))
-      str_eval = paste(str_eval, paste0('sign_',i,' == results[',i,']'), sep = ' & ')
-
-      columns_signs <- c(columns_signs, paste0('sign_', i))
-
+  for(i in c(2:14)){
+    if(results[i] == ''){
+      signs_posible <- c(paste0(signs_posible, '1'),
+                         paste0(signs_posible, 'x'),
+                         paste0(signs_posible, '2'))
+    }else{
+      signs_posible <-  paste0(signs_posible, results[i])
     }
   }
 
-  possible_results = eval(parse(text=paste0("prob_voted_table[",str_eval,"]")))
-
-  # Delete auxiliar columns
-  if(length(columns_signs)>0){
-    eval(parse(text=paste0("prob_voted_table[,':='(", columns_signs," = NULL)]")))
-  }
-
-  return(possible_results)
+  return(prob_voted_table[sign %in% signs_posible])
 }

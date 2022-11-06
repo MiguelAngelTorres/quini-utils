@@ -3,6 +3,7 @@
 
 ## Future version
 Features:
+- Reduced time costs in function filter_possible_results()
 
 Small bugfixes:
 - Fixed a bug in signs_with_distance() that produce many warnings for no reason.
