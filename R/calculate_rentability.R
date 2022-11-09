@@ -19,6 +19,9 @@
 #'
 #' @export
 #' @examples
+#' library(data.table)
+#' matches <- get_random_matches()
+#' prob_voted_table <- calculate_probabilities(matches)
 #' get_rentability(prob_voted_table, 1.5)
 #'
 

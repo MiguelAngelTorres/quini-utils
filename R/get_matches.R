@@ -17,6 +17,7 @@
 #'
 #' @export
 #' @import data.table
+#' @import rvest
 #'
 get_data_quinielaticas <- function(url){
   

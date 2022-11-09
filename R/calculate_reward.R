@@ -43,7 +43,7 @@ calculate_all_reward <- function(prob_voted_table, money){
 #'
 #' @param prob_voted_table (data.table): the prob_voted table with the expected reward
 #' calculated. Watch calculate_all_reward function for more information about the reward column.
-#' @param selected (data.table): A table with a column named sign with the character result is expected
+#' @param played (data.table): A table with a column named sign with the character result is expected
 #' @param results (list of characters): A list with 14 characters with the known results,
 #' '1','x' or '2' for each element. The unknown results must be represented with ''.
 #'
@@ -54,7 +54,7 @@ calculate_all_reward <- function(prob_voted_table, money){
 #' matches <- get_random_matches()
 #' prob_voted_table <- calculate_probabilities(matches)
 #' prob_voted_table <- calculate_all_reward(prob_voted_table, 2600000)
-#' selected = c('11111111111111')
+#' selected = data.table(sign = c('11111111111111'))
 #' results <- c('1','1','1','1','','','','','','','','','','')
 #' min_max_rewards <- calculate_min_max_reward(prob_voted_table, selected, results)
 #'
@@ -109,7 +109,7 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' prob_voted_table <- calculate_probabilities(matches)
 #' played <- data.table(sign = c('11111111111111', '11211111111111'))
 #' results <- c('1','1','1','1','', '', '', '','','','','','','')
-#' prob_of_reward <- calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20))
+#' calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20), 2600000)
 #'
 #' @export
 #' @import data.table

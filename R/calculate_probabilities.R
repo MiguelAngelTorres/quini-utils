@@ -19,6 +19,8 @@
 #' @return prob_voted_table (data.table): the table with prob and voted columns.
 #'
 #' @examples
+#' library(data.table)
+#' matches <- get_random_matches()
 #' calculate_probabilities(matches)
 #'
 #' @export
@@ -38,7 +40,7 @@ calculate_probabilities <- function(matches){
   )]
 
 
-  prob_voted_table_splited = get_voted_prob()
+  prob_voted_table_splited = get_voted_prob(matches)
   
   gc()
 
@@ -60,6 +62,7 @@ calculate_probabilities <- function(matches){
 #' with n the number of allow_fails (typically 4)
 #' 
 #'
+#' @param matches (data.table): The matches to calculated the probabilities.
 #' @param out (data.table): Ignored param, just used for recursive call in internal
 #' logic.
 #' @param this_id (integer): Ignored param, just used for recursive call in internal
@@ -71,12 +74,14 @@ calculate_probabilities <- function(matches){
 #' @return prob_voted_table_splited (data.table): the prob_voted table splited by rows.
 #'
 #' @examples
-#' get_voted_prob()
+#' library(data.table)
+#' matches <- get_random_matches()
+#' get_voted_prob(matches)
 #'
 #' @export
 #' @import data.table
 #'
-get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
+get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails = 4){
   
   start_id = 1
   end_id = 14
@@ -103,7 +108,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
                                                     voted = voted * this_match$voted_no_2, fails = fails + 1)])
     
    out <-out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-   return <- get_voted_prob(out = out, this_id = next_id, allow_fails = allow_fails)
+   return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
     
     return(return)
     
@@ -147,7 +152,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
                                      voted = this_match$voted_2, fails = 0))
       
       out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-      return <- get_voted_prob(out = out, this_id = next_id, allow_fails = allow_fails)
+      return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
     
     } else {
       
@@ -165,7 +170,7 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
                                      voted = this_match$voted_no_2, fails = 1))
       
       out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-      return <- get_voted_prob(out = out, this_id = next_id, allow_fails = allow_fails)
+      return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
       
     }
     
@@ -188,7 +193,11 @@ get_voted_prob <- function(out = data.table(), this_id = 1, allow_fails = 4){
 #' @return prob_voted_table (data.table): the joined prob_voted table.
 #'
 #' @examples
+#' library(data.table)
+#' matches <- get_random_matches()
+#' prob_voted_table_splited = get_voted_prob(matches)
 #' get_prob_with_fails(table_prob_splited)
+#'
 #' @export
 #'
 get_prob_with_fails <- function(prob_voted_table_splited){

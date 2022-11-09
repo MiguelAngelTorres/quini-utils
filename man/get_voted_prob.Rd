@@ -4,9 +4,11 @@
 \alias{get_voted_prob}
 \title{Calculate the prob_voted table splited by rows}
 \usage{
-get_voted_prob(out = data.table(), this_id = 1, allow_fails = 4)
+get_voted_prob(matches, out = data.table(), this_id = 1, allow_fails = 4)
 }
 \arguments{
+\item{matches}{(data.table): The matches to calculated the probabilities.}
+
 \item{out}{(data.table): Ignored param, just used for recursive call in internal
 logic.}
 
@@ -30,6 +32,8 @@ That way, you will have 4.7M * (n+1) rows,
 with n the number of allow_fails (typically 4)
 }
 \examples{
-get_voted_prob()
+library(data.table)
+matches <- get_random_matches()
+get_voted_prob(matches)
 
 }

@@ -31,6 +31,8 @@ For example, if the output of a row is voted_13 = 0.2 and prob_13 = 0.3, it mean
 }
 }
 \examples{
+library(data.table)
+matches <- get_random_matches()
 calculate_probabilities(matches)
 
 }

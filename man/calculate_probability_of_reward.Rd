@@ -41,6 +41,6 @@ matches <- get_random_matches()
 prob_voted_table <- calculate_probabilities(matches)
 played <- data.table(sign = c('11111111111111', '11211111111111'))
 results <- c('1','1','1','1','', '', '', '','','','','','','')
-prob_of_reward <- calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20))
+calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20), 2600000)
 
 }

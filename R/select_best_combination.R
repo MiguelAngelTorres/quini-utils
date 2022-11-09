@@ -65,6 +65,7 @@ is_diff_sign <- function(data, selected, new, min_diff, total_diff){
 #'
 #' @export
 #' @import data.table
+#' @import stats
 #'
 best_n_with_diff <- function(data, nsigns, diff){
   

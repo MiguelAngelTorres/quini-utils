@@ -10,10 +10,10 @@ calculate_min_max_reward(prob_voted_table, played, results)
 \item{prob_voted_table}{(data.table): the prob_voted table with the expected reward
 calculated. Watch calculate_all_reward function for more information about the reward column.}
 
+\item{played}{(data.table): A table with a column named sign with the character result is expected}
+
 \item{results}{(list of characters): A list with 14 characters with the known results,
 '1','x' or '2' for each element. The unknown results must be represented with ''.}
-
-\item{selected}{(data.table): A table with a column named sign with the character result is expected}
 }
 \value{
 played (data.table): The same played table with min and max reward columns added.
@@ -28,7 +28,7 @@ library(data.table)
 matches <- get_random_matches()
 prob_voted_table <- calculate_probabilities(matches)
 prob_voted_table <- calculate_all_reward(prob_voted_table, 2600000)
-selected = c('11111111111111')
+selected = data.table(sign = c('11111111111111'))
 results <- c('1','1','1','1','','','','','','','','','','')
 min_max_rewards <- calculate_min_max_reward(prob_voted_table, selected, results)
 

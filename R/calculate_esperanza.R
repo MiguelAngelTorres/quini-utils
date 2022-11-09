@@ -19,7 +19,10 @@
 #' @return prob_voted_table (data.table): The same prob_voted_table with em columns added.
 #'
 #' @examples
-#' get_em(prob_voted_table, 2600000, 10)
+#' library(data.table)
+#' matches <- get_random_matches()
+#' prob_voted_table <- calculate_probabilities(matches)
+#' get_em(prob_voted_table, 2600000, 13)
 #'
 #' @export
 #' @import data.table
@@ -194,7 +197,6 @@ get_em <- function(prob_voted_table, money, level = 10, optimization = FALSE){
 #' @param out_columns (list integer): The columns to exclude
 #'
 #' @return get_col (list string): The columns to perform the group by
-#'
 #'
 #' @export
 #'

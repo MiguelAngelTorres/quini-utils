@@ -18,5 +18,9 @@ Watch get_probabilities and get_voted_prob functions if need further information
 about the prob_voted table.
 }
 \examples{
+library(data.table)
+matches <- get_random_matches()
+prob_voted_table_splited = get_voted_prob(matches)
 get_prob_with_fails(table_prob_splited)
+
 }
