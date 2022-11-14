@@ -116,17 +116,25 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #'
 calculate_probability_of_reward <- function(prob_voted_table, played, results, rewards = c(10,50,100,500,1000,5000), money){
 
-  possible_results <- filter_possible_results(prob_voted_table, results)
+  possible_results <- filter_possible_results_test(prob_voted_table, results)
   possible_results[,':='(num_prizes_14 = 0, num_prizes_13 = 0, num_prizes_12 = 0, num_prizes_11 = 0, num_prizes_10 = 0)]
 
-  for(i in c(1:nrow(played))){
-    for(fails in c(0:4)){
-      prizes = signs_with_distance(this_id = 1, dist = fails, mysign = played[i]$sign)
+  total_prizes <- data.table()
+  dim_played <- nrow(played)
 
-      num <- (14-fails)
-      eval(parse(text=paste0("possible_results[prizes, on=.(sign), num_prizes_", num, " := num_prizes_", num, " + 1]")))
-    }
+  for(i in c(1:dim_played)){
+    prizes <- signs_with_distance(this_id = 1, dist = fails, allow_lower_fails = TRUE, mysign = played[i]$sign)[,.(sign, fails, conteo = 1)]
+    total_prizes <- rbind(prizes, total_prizes)[,.(conteo = sum(conteo)),by=.(sign,fails)]
+
+    total_prizes <- total_prizes[,.(conteo = sum(conteo)),by=.(sign,fails)]
+
   }
+
+  total_prizes = dcast(total_prizes, sign ~ fails, value.var=c("conteo"))
+
+  possible_results[total_prizes, on=.(sign), ':='(num_prizes_14 = i.0, num_prizes_13 = i.1, num_prizes_12 = i.2,
+                                                  num_prizes_11 = i.3, num_prizes_10 = i.4)]
+  possible_results[is.na(possible_results)] <- 0
 
   possible_results[ , ':='(reward_14 = (money*0.16) / (num_prizes_14+(voted_14*(money/0.75))),
                            reward_13 = (money*0.075) / (num_prizes_13+(voted_13*(money/0.75))),
