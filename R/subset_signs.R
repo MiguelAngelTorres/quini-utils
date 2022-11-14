@@ -110,23 +110,15 @@ signs_with_distance <- function(out, this_id, dist, mysign){
 #' @export
 #' @import data.table
 #'
-filter_possible_results <- function(prob_voted_table, results){
+filter_possible_results_test <- function(prob_voted_table, results) {
 
-  if(results[1] == ''){
-    signs_posible <- c("1","x","2")
-  }else{
-    signs_posible <- results[1]
-  }
+  all_table <- copy(prob_voted_table)
 
-  for(i in c(2:14)){
-    if(results[i] == ''){
-      signs_posible <- c(paste0(signs_posible, '1'),
-                         paste0(signs_posible, 'x'),
-                         paste0(signs_posible, '2'))
-    }else{
-      signs_posible <-  paste0(signs_posible, results[i])
+  for (i in c(1 : 14)) {
+    if (results[i] != "") {
+      all_table <- all_table[substr(sign,i,i) == results[i]]
     }
   }
 
-  return(prob_voted_table[sign %in% signs_posible])
+  return(all_table)
 }
