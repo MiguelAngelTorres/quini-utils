@@ -45,7 +45,7 @@ signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mys
                    out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
     }
 
-    return <- signs_with_distance(out = out, this_id = next_id, dist = dist, mysign)
+    return <- signs_with_distance(out = out, this_id = next_id, dist = dist, allow_lower_fails, mysign)
 
     return(return)
 
@@ -74,7 +74,7 @@ signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mys
 
       out <- rbind(data.table(sign = this_sign, fails= 0))
 
-      return <- signs_with_distance(out = out, this_id = this_id + 1, dist = dist, mysign)
+      return <- signs_with_distance(out = out, this_id = this_id + 1, dist = dist, allow_lower_fails,  mysign)
 
     } else {
 
@@ -82,7 +82,7 @@ signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mys
                    data.table(sign = signs_not[1], fails = 1),
                    data.table(sign = signs_not[2], fails = 1))
 
-      return <- signs_with_distance(out = out, this_id = next_id, dist = dist, mysign)
+      return <- signs_with_distance(out = out, this_id = next_id, dist = dist, allow_lower_fails,  mysign)
 
     }
 
