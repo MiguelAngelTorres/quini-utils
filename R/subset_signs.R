@@ -115,7 +115,7 @@ signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mys
 #' @export
 #' @import data.table
 #'
-filter_possible_results_test <- function(prob_voted_table, results) {
+filter_possible_results <- function(prob_voted_table, results) {
 
   all_table <- copy(prob_voted_table)
 

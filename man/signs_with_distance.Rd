@@ -4,7 +4,7 @@
 \alias{signs_with_distance}
 \title{Calculate the signs that have n different matches with other given sign}
 \usage{
-signs_with_distance(out, this_id, dist, mysign)
+signs_with_distance(out, this_id, dist, allow_lower_fails = FALSE, mysign)
 }
 \arguments{
 \item{out}{(data.table): Ignored param, just used for recursive call in internal
@@ -14,6 +14,9 @@ logic.}
 logic.}
 
 \item{dist}{(integer): The number of different sign between mysign and output.}
+
+\item{allow_lower_fails}{(boolean): If true, returns the matches with lower different signs than dist.
+Default set to false.}
 
 \item{mysign}{(string): A string with 14 characters, '1', '2' or 'x' representing the sign
 to calculate.}
