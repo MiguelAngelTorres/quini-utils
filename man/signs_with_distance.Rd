@@ -4,10 +4,20 @@
 \alias{signs_with_distance}
 \title{Calculate the signs that have n different matches with other given sign}
 \usage{
-signs_with_distance(out, this_id, dist, allow_lower_fails = FALSE, mysign)
+signs_with_distance(
+  out_sign,
+  out_fail,
+  this_id,
+  dist,
+  allow_lower_fails = FALSE,
+  mysign
+)
 }
 \arguments{
-\item{out}{(data.table): Ignored param, just used for recursive call in internal
+\item{out_sign}{(data.table): Ignored param, just used for recursive call in internal
+logic.}
+
+\item{out_fail}{(data.table): Ignored param, just used for recursive call in internal
 logic.}
 
 \item{this_id}{(integer): Ignored param, just used for recursive call in internal

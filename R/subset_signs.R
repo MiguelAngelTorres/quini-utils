@@ -8,7 +8,9 @@
 #' 
 #' Note that sign must be of length 14
 #'
-#' @param out (data.table): Ignored param, just used for recursive call in internal
+#' @param out_sign (data.table): Ignored param, just used for recursive call in internal
+#' logic.
+#' @param out_fail (data.table): Ignored param, just used for recursive call in internal
 #' logic.
 #' @param this_id (integer): Ignored param, just used for recursive call in internal
 #' logic.
@@ -27,7 +29,7 @@
 #' @export
 #' @import data.table
 #'
-signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mysign){
+signs_with_distance <- function(out_sign, out_fail, this_id, dist, allow_lower_fails=FALSE, mysign){
 
   next_id <- this_id+1
 
@@ -35,54 +37,65 @@ signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mys
   signs_not <- c('1','x','2')
   signs_not <- signs_not[!signs_not %in% this_sign]
 
-  if(this_id != 1 & this_id != 14){
+  if(this_id != 1){
 
-    out_allowed_fails <- out[fails < dist]
+    mask = out_fail < dist
+    out_allowed_sign <- out_sign[mask]
+    out_allowed_fails <- out_fail[mask]
 
-    if(nrow(out_allowed_fails) > 0){
-      out <- rbind(out[,.(sign = paste(sign, this_sign, sep=''), fails)],
-                   out_allowed_fails[,.(sign = paste(sign, signs_not[1], sep=''), fails = fails + 1)],
-                   out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
-    }
+    if(length(out_allowed_sign) > 0){
 
-    return <- signs_with_distance(out = out, this_id = next_id, dist = dist, allow_lower_fails, mysign)
+      out_sign <- c(paste0(out_sign, this_sign),
+                    paste0(out_allowed_sign,signs_not[1]),
+                    paste0(out_allowed_sign,signs_not[2]))
 
-    return(return)
+      out_fail <- c(out_fail,
+                    out_allowed_fails + 1,
+                    out_allowed_fails + 1)
 
-  }
-
-  if(this_id == 14){
-
-    out_allowed_fails <- out[fails < dist]
-
-    if(nrow(out_allowed_fails) > 0){
-      out <- rbind(out[,.(sign = paste(sign, this_sign, sep=''), fails)],
-                   out_allowed_fails[,.(sign = paste(sign, signs_not[1], sep=''), fails = fails + 1)],
-                   out_allowed_fails[,.(sign = paste(sign, signs_not[2], sep=''), fails = fails + 1)])
-    }
-
-    if(allow_lower_fails){
-      return(out[fails <= dist])
     }else{
-      return(out[fails == dist])
+
+      out_sign <- paste0(out_sign, this_sign)
+
     }
+
+    if(this_id != 14){
+      return <- signs_with_distance(out_sign = out_sign, out_fail = out_fail, this_id = next_id, dist = dist, allow_lower_fails, mysign)
+      return(return)
+
+    }else{
+
+      if(allow_lower_fails){
+        mask = out_fail <= dist
+        return_sign <- out_sign[mask]
+        return_fail <- out_fail[mask]
+      }else{
+        mask = out_fail == dist
+        return_sign <- out_sign[mask]
+        return_fail <- out_fail[mask]
+      }
+
+      return(data.table(sign = return_sign, fails = return_fail))
+
+    }
+
   }
 
   if(this_id == 1){
 
     if(dist == 0){
 
-      out <- rbind(data.table(sign = this_sign, fails= 0))
+      out_sign <- this_sign
+      out_fail <- 0
 
-      return <- signs_with_distance(out = out, this_id = this_id + 1, dist = dist, allow_lower_fails,  mysign)
+      return <- signs_with_distance(out_sign = out_sign, out_fail=out_fail, this_id = next_id, dist = dist, allow_lower_fails,  mysign)
 
     } else {
 
-      out <- rbind(data.table(sign = this_sign, fails= 0),
-                   data.table(sign = signs_not[1], fails = 1),
-                   data.table(sign = signs_not[2], fails = 1))
+      out_sign <- c(this_sign, signs_not)
+      out_fail <- c(0, 1, 1)
 
-      return <- signs_with_distance(out = out, this_id = next_id, dist = dist, allow_lower_fails,  mysign)
+      return <- signs_with_distance(out_sign = out_sign, out_fail=out_fail, this_id = next_id, dist = dist, allow_lower_fails,  mysign)
 
     }
 
@@ -91,7 +104,6 @@ signs_with_distance <- function(out, this_id, dist, allow_lower_fails=FALSE, mys
   }
 
 }
-
 
 #' Filter the prob_voted_table with possible final results
 #'
