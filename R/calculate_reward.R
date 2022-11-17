@@ -123,7 +123,7 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
   dim_played <- nrow(played)
 
   for(i in c(1:dim_played)){
-    prizes <- signs_with_distance(this_id = 1, dist = fails, allow_lower_fails = TRUE, mysign = played[i]$sign)[,.(sign, fails, conteo = 1)]
+    prizes <- signs_with_distance(this_id = 1, dist = 4, allow_lower_fails = TRUE, mysign = played[i]$sign)[,.(sign, fails, conteo = 1)]
     total_prizes <- rbind(prizes, total_prizes)[,.(conteo = sum(conteo)),by=.(sign,fails)]
 
     total_prizes <- total_prizes[,.(conteo = sum(conteo)),by=.(sign,fails)]
