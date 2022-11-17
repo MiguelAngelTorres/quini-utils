@@ -129,7 +129,7 @@ signs_with_distance <- function(out_sign, out_fail, this_id, dist, allow_lower_f
 #'
 filter_possible_results <- function(prob_voted_table, results) {
 
-  all_table <- copy(prob_voted_table)
+  all_table <- prob_voted_table
 
   for (i in c(1 : 14)) {
     if (results[i] != "") {
