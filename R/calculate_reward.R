@@ -116,7 +116,7 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #'
 calculate_probability_of_reward <- function(prob_voted_table, played, results, rewards = c(10,50,100,500,1000,5000), money){
 
-  possible_results <- filter_possible_results_test(prob_voted_table, results)
+  possible_results <- filter_possible_results(prob_voted_table, results)
   possible_results[,':='(num_prizes_14 = 0, num_prizes_13 = 0, num_prizes_12 = 0, num_prizes_11 = 0, num_prizes_10 = 0)]
 
   total_prizes <- data.table()
