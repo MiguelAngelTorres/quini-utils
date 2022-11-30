@@ -63,7 +63,7 @@ get_em <- function(prob_voted_table, money, level = 10, optimization = FALSE){
   if(get_em_13){
     for(i in c(1:14)){
       eval(parse(text = paste0("prob_voted_table[,':='(sign_" ,i, "_ = substr(sign,",i,",",i,"))]")))
-      if(i != 14){
+      if(optimization && i != 14){
         eval(parse(text = paste0("prob_voted_table[,':='(sign_" ,i, "_", i+1, "_ = substr(sign,",i,",",i+1,"))]")))
       }
     }
