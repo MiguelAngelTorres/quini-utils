@@ -7,7 +7,7 @@
 signs_with_distance(
   out_sign,
   out_fail,
-  this_id,
+  this_id = 1,
   dist,
   allow_lower_fails = FALSE,
   mysign

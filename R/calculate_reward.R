@@ -67,7 +67,7 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 
   for(i in c(1:nrow(played))){
     for(fails in c(0:4)){
-      possible_wins <- possible_results[sign %in% signs_with_distance(this_id = 1, dist = fails, mysign = played[i]$sign)$sign]
+      possible_wins <- possible_results[sign %in% signs_with_distance(dist = fails, mysign = played[i]$sign)$sign]
 
       num <- (14-fails)
       eval(parse(text=paste0(" played[",i,",':='(max_reward_",num, " = max(possible_wins$reward_",num,", na.rm = TRUE), ",

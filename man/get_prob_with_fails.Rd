@@ -25,6 +25,6 @@ matches[,':='(
   real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
 )]
 prob_voted_table_splited = get_voted_prob(matches)
-get_prob_with_fails(table_prob_splited)
+get_prob_with_fails(prob_voted_table_splited)
 
 }

@@ -22,6 +22,6 @@ it has no prediction component.
 }
 \examples{
 matches <- get_random_matches()
-normalized_voted(matches)
+normalize_voted(matches)
 
 }

@@ -29,7 +29,7 @@
 #' @export
 #' @import data.table
 #'
-signs_with_distance <- function(out_sign, out_fail, this_id, dist, allow_lower_fails=FALSE, mysign){
+signs_with_distance <- function(out_sign, out_fail, this_id = 1, dist, allow_lower_fails=FALSE, mysign){
 
   next_id <- this_id+1
 

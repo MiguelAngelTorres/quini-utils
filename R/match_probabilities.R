@@ -47,7 +47,7 @@ increase_real_by_voted <- function(matches, index){
 #'
 #' @examples
 #' matches <- get_random_matches()
-#' normalized_voted(matches)
+#' normalize_voted(matches)
 #'
 #' @export
 #' @import data.table
