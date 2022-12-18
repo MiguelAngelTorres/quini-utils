@@ -18,13 +18,14 @@
 #' @export
 #' @import data.table
 #' @import rvest
+#' @import stringr
 #'
 get_data_quinielaticas <- function(url){
   
   # get url with table
   html <- read_html(url)
   iframes <- html %>% html_nodes('iframe') %>% html_attr("src")
-  table_web <- iframes[iframes %like% 'spreadsheets']
+  table_web <- iframes[iframes %like% 'spreadsheets'][1]
   
   html <- read_html(table_web)
   

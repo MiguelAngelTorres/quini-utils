@@ -13,7 +13,8 @@ Depends:
 Imports:
     data.table,
     rvest,
-    stats
+    stats,
+    stringr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 NeedsCompilation: yes

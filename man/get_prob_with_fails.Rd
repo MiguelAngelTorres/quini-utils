@@ -20,6 +20,10 @@ about the prob_voted table.
 \examples{
 library(data.table)
 matches <- get_random_matches()
+matches[,':='(
+  voted_no_1 = 1 - voted_1, voted_no_x = 1 - voted_x, voted_no_2 = 1 - voted_2,
+  real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
+)]
 prob_voted_table_splited = get_voted_prob(matches)
 get_prob_with_fails(table_prob_splited)
 

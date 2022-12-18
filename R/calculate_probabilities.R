@@ -76,6 +76,10 @@ calculate_probabilities <- function(matches){
 #' @examples
 #' library(data.table)
 #' matches <- get_random_matches()
+#' matches[,':='(
+#'   voted_no_1 = 1 - voted_1, voted_no_x = 1 - voted_x, voted_no_2 = 1 - voted_2,
+#'   real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
+#' )]
 #' get_voted_prob(matches)
 #'
 #' @export
@@ -157,7 +161,7 @@ get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails
     } else {
       
       out <- rbind(data.table(sign = '1', prob = this_match$real_1,
-                                     voted = this_match$voted_1, fails = 0), 
+                                     voted = this_match$voted_1, fails = 0),
                           data.table(sign = 'x', prob = this_match$real_x,
                                      voted = this_match$voted_x, fails = 0),
                           data.table(sign = '2', prob = this_match$real_2, 
@@ -168,7 +172,7 @@ get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails
                                      voted = this_match$voted_no_x, fails = 1),
                           data.table(sign = '2', prob = this_match$real_no_2, 
                                      voted = this_match$voted_no_2, fails = 1))
-      
+
       out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
       return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
       
@@ -195,6 +199,10 @@ get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails
 #' @examples
 #' library(data.table)
 #' matches <- get_random_matches()
+#' matches[,':='(
+#'   voted_no_1 = 1 - voted_1, voted_no_x = 1 - voted_x, voted_no_2 = 1 - voted_2,
+#'   real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
+#' )]
 #' prob_voted_table_splited = get_voted_prob(matches)
 #' get_prob_with_fails(table_prob_splited)
 #'

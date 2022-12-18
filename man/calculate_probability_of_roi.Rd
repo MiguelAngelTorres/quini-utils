@@ -32,6 +32,7 @@ matches <- get_random_matches()
 prob_voted_table <- calculate_probabilities(matches)
 played <- data.table(sign = c('11111111111111', '11211111111111'))
 results <- c('x','1','x','2','', '', '', '','x','2','1','','','')
-prob_of_reward <- calculate_probability_of_roi(prob_voted_table, played, results)
+money <- 1000000
+prob_of_reward <- calculate_probability_of_roi(prob_voted_table, played, results, money)
 
 }

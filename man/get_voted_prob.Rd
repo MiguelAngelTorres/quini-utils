@@ -34,6 +34,10 @@ with n the number of allow_fails (typically 4)
 \examples{
 library(data.table)
 matches <- get_random_matches()
+matches[,':='(
+  voted_no_1 = 1 - voted_1, voted_no_x = 1 - voted_x, voted_no_2 = 1 - voted_2,
+  real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
+)]
 get_voted_prob(matches)
 
 }
