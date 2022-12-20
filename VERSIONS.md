@@ -9,6 +9,8 @@ Features:
 
 Small bugfixes:
 - Fixed a bug in signs_with_distance() that produce many warnings for no reason.
+- Fixed a bug in get_em() when optimization is not applied, temp columns where not deleted from prob_voted_table.
+- Fixed a bug in calculate_probability_of_roi(). Parenthesis where not paired.
 
 
 
