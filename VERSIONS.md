@@ -3,9 +3,12 @@
 
 ## Future version
 Features:
-- Added the parameter allow_lower_fails in function signs_with_distance()
-- Reduced time costs in function filter_possible_results()
-- Reduced time costs in function calculate_probability_of_reward()
+- Added the **parameter allow_lower_fails in function signs_with_distance()**
+- **Reduced time costs** in function filter_possible_results()
+- **Reduced time costs** in function calculate_probability_of_reward()
+
+Changes:
+- **get_rentability() has been renamed**. Now the function is called get_profitability().
 
 Small bugfixes:
 - Fixed a bug in signs_with_distance() that produce many warnings for no reason.
