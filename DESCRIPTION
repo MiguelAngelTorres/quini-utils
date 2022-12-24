@@ -1,8 +1,8 @@
 Package: quiniutils
 Type: Package
-Title: Quiniela utils
-Description: R library to perform better on quiniela bets. Contains util functions
-    to calculate EM, rentability and return of investment.
+Title: Quiniela Utils
+Description: R library to perform better on quiniela bets. Contains usefull functions
+    to calculate EM, profitability and return of investment.
 License: MIT + file LICENSE
 Authors@R: c(
     person("Miguel Angel", "Torres Lopez", , "torresma.1996@gmail.com", role = c("aut", "cre"))
