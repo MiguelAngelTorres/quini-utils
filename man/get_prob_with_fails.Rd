@@ -18,6 +18,7 @@ Watch get_probabilities and get_voted_prob functions if need further information
 about the prob_voted table.
 }
 \examples{
+\dontrun{
 library(data.table)
 matches <- get_random_matches()
 matches[,':='(
@@ -26,5 +27,6 @@ matches[,':='(
 )]
 prob_voted_table_splited = get_voted_prob(matches)
 get_prob_with_fails(prob_voted_table_splited)
+}
 
 }

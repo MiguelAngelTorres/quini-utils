@@ -36,11 +36,13 @@ and a list of amounts, the function returns the probability of been
 rewarded with more than every amount.
 }
 \examples{
+\dontrun{
 library(data.table)
 matches <- get_random_matches()
 prob_voted_table <- calculate_probabilities(matches)
 played <- data.table(sign = c('11111111111111', '11211111111111'))
 results <- c('1','1','1','1','', '', '', '','','','','','','')
 calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20), 2600000)
+}
 
 }

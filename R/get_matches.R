@@ -13,7 +13,9 @@
 #' @return matches (data.table): A table with the matches information
 #'
 #' @examples
+#' \dontrun{
 #' get_data_quinielaticas('https://quinielaticas.com/')
+#' }
 #'
 #' @export
 #' @import data.table

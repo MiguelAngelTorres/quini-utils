@@ -30,9 +30,11 @@ the probability of that event to happen. The param level controls the
 events to be calculated
 }
 \examples{
+\dontrun{
 library(data.table)
 matches <- get_random_matches()
 prob_voted_table <- calculate_probabilities(matches)
 get_em(prob_voted_table, 2600000, 13)
+}
 
 }

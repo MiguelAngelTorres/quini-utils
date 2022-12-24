@@ -24,6 +24,7 @@ it returns the max and min money you can earn. The max and min reward depends
 on the result of the matches which result is unknown.
 }
 \examples{
+\dontrun{
 library(data.table)
 matches <- get_random_matches()
 prob_voted_table <- calculate_probabilities(matches)
@@ -31,5 +32,6 @@ prob_voted_table <- calculate_all_reward(prob_voted_table, 2600000)
 selected = data.table(sign = c('11111111111111'))
 results <- c('1','1','1','1','','','','','','','','','','')
 min_max_rewards <- calculate_min_max_reward(prob_voted_table, selected, results)
+}
 
 }

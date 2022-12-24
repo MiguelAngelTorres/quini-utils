@@ -32,6 +32,7 @@ That way, you will have 4.7M * (n+1) rows,
 with n the number of allow_fails (typically 4)
 }
 \examples{
+\dontrun{
 library(data.table)
 matches <- get_random_matches()
 matches[,':='(
@@ -39,5 +40,6 @@ matches[,':='(
   real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
 )]
 get_voted_prob(matches)
+}
 
 }

@@ -19,12 +19,13 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' prob_voted_table <- calculate_probabilities(matches)
 #' get_rentability(prob_voted_table, 1.5)
+#' }
 #'
-
 get_rentability <- function(prob_voted_table, importance = 1.0){
 
   prob_voted_table[,':='(rent_14 = (prob_14 ^ importance) / voted_14,

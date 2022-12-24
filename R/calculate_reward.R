@@ -13,10 +13,12 @@
 #' @return prob_voted_table (data.table): The same prob_voted_table with reward columns added.
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' prob_voted_table <- calculate_probabilities(matches)
 #' calculate_all_reward(prob_voted_table, 2600000)
+#' }
 #'
 #' @export
 #' @import data.table
@@ -50,6 +52,7 @@ calculate_all_reward <- function(prob_voted_table, money){
 #' @return played (data.table): The same played table with min and max reward columns added.
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' prob_voted_table <- calculate_probabilities(matches)
@@ -57,6 +60,7 @@ calculate_all_reward <- function(prob_voted_table, money){
 #' selected = data.table(sign = c('11111111111111'))
 #' results <- c('1','1','1','1','','','','','','','','','','')
 #' min_max_rewards <- calculate_min_max_reward(prob_voted_table, selected, results)
+#' }
 #'
 #' @export
 #' @import data.table
@@ -104,12 +108,14 @@ calculate_min_max_reward <- function(prob_voted_table, played, results){
 #' of earning more of that rewards.
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' prob_voted_table <- calculate_probabilities(matches)
 #' played <- data.table(sign = c('11111111111111', '11211111111111'))
 #' results <- c('1','1','1','1','', '', '', '','','','','','','')
 #' calculate_probability_of_reward(prob_voted_table, played, results, rewards = c(10,20), 2600000)
+#' }
 #'
 #' @export
 #' @import data.table
@@ -177,6 +183,7 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 #' of earning more of the invested amount (number of bets * 0.75).
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' prob_voted_table <- calculate_probabilities(matches)
@@ -184,6 +191,7 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 #' results <- c('x','1','x','2','', '', '', '','x','2','1','','','')
 #' money <- 1000000
 #' prob_of_reward <- calculate_probability_of_roi(prob_voted_table, played, results, money)
+#' }
 #'
 #' @export
 #' @import data.table

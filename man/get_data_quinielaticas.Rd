@@ -22,6 +22,8 @@ Note that the scrapper is only expecting the 'https://quinielaticas.com/' or
 depends on if you prefer this week or next week matches.
 }
 \examples{
+\dontrun{
 get_data_quinielaticas('https://quinielaticas.com/')
+}
 
 }

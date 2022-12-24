@@ -19,9 +19,11 @@
 #' @return prob_voted_table (data.table): the table with prob and voted columns.
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' calculate_probabilities(matches)
+#' }
 #'
 #' @export
 #' @import data.table
@@ -74,6 +76,7 @@ calculate_probabilities <- function(matches){
 #' @return prob_voted_table_splited (data.table): the prob_voted table splited by rows.
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' matches[,':='(
@@ -81,6 +84,7 @@ calculate_probabilities <- function(matches){
 #'   real_no_1 = 1 - real_1, real_no_x = 1 - real_x, real_no_2 = 1 - real_2
 #' )]
 #' get_voted_prob(matches)
+#' }
 #'
 #' @export
 #' @import data.table
@@ -197,6 +201,7 @@ get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails
 #' @return prob_voted_table (data.table): the joined prob_voted table.
 #'
 #' @examples
+#' \dontrun{
 #' library(data.table)
 #' matches <- get_random_matches()
 #' matches[,':='(
@@ -205,6 +210,7 @@ get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails
 #' )]
 #' prob_voted_table_splited = get_voted_prob(matches)
 #' get_prob_with_fails(prob_voted_table_splited)
+#' }
 #'
 #' @export
 #'
