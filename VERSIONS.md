@@ -6,6 +6,7 @@ Features:
 - Added the **parameter allow_lower_fails in function signs_with_distance()**
 - **Reduced time costs** in function filter_possible_results()
 - **Reduced time costs** in function calculate_probability_of_reward()
+- **Reduced time costs** in function get_voted_prob()
 
 Changes:
 - **get_rentability() has been renamed**. Now the function is called get_profitability().

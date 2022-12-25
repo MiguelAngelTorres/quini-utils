@@ -90,102 +90,155 @@ calculate_probabilities <- function(matches){
 #' @import data.table
 #'
 get_voted_prob <- function(matches, out = data.table(), this_id = 1, allow_fails = 4){
-  
-  start_id = 1
-  end_id = 14
-  next_id = this_id+1
-  
-  this_match <- matches[this_id]
-  
-  # Normal iteration
-  if(this_id != start_id & this_id != end_id){
-    
-    out_allowed_fails <- out[fails < allow_fails]
-    
-    out <- rbind(out[,.(sign = paste(sign, '1', sep=''), prob = prob * this_match$real_1, 
-                                     voted  = voted * this_match$voted_1, fails)], 
-                        out[,.(sign = paste(sign, 'x', sep=''), prob = prob * this_match$real_x, 
-                                     voted = voted * this_match$voted_x, fails)],
-                        out[,.(sign = paste(sign, '2', sep=''), prob = prob * this_match$real_2, 
-                                     voted = voted * this_match$voted_2, fails)],
-                        out_allowed_fails[,.(sign = paste(sign, '1', sep=''), prob = prob * this_match$real_no_1, 
-                                                    voted = voted * this_match$voted_no_1, fails = fails + 1)], 
-                        out_allowed_fails[,.(sign = paste(sign, 'x', sep=''), prob = prob * this_match$real_no_x, 
-                                                    voted = voted * this_match$voted_no_x, fails = fails + 1)],
-                        out_allowed_fails[,.(sign = paste(sign, '2', sep=''), prob = prob * this_match$real_no_2, 
-                                                    voted = voted * this_match$voted_no_2, fails = fails + 1)])
-    
-   out <-out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-   return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
-    
-    return(return)
-    
-  }
-  
-  
-  # Last iteration
-  if(this_id == end_id){
-    
-    out_allowed_fails <- out[fails < allow_fails]
-    
-    out <- rbind(out[,.(sign = paste(sign, '1', sep=''), prob = prob * this_match$real_1, 
-                                     voted = voted * this_match$voted_1, fails)], 
-                        out[,.(sign = paste(sign, 'x', sep=''), prob = prob * this_match$real_x,
-                                     voted = voted * this_match$voted_x, fails)],
-                        out[,.(sign = paste(sign, '2', sep=''), prob = prob * this_match$real_2, 
-                                     voted = voted * this_match$voted_2, fails)],
-                        out_allowed_fails[,.(sign = paste(sign, '1', sep=''), prob = prob * this_match$real_no_1, 
-                                                    voted = voted * this_match$voted_no_1, fails = fails + 1)], 
-                        out_allowed_fails[,.(sign = paste(sign, 'x', sep=''), prob = prob * this_match$real_no_x, 
-                                                    voted = voted * this_match$voted_no_x, fails = fails + 1)],
-                        out_allowed_fails[,.(sign = paste(sign, '2', sep=''), prob = prob * this_match$real_no_2, 
-                                                    voted = voted * this_match$voted_no_2, fails = fails + 1)])
 
-    out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-    return(out)
-    
+  start_id = 1
+  end_id = 13
+  next_id = this_id+2
+
+  match1 <- matches[this_id]
+  match2 <- matches[this_id+1]
+
+  # Normal iteration
+  if(this_id != start_id){
+
+    out_allowed_1_fails <- out[fails < allow_fails]
+    out_allowed_2_fails <- out[fails+1 < allow_fails]
+
+    out <- rbind(out[,.(sign = paste0(sign, '11'), prob = prob * match1$real_1 * match2$real_1,
+                        voted  = voted * match1$voted_1 * match2$voted_1, fails)],
+                 out[,.(sign = paste0(sign, 'x1'), prob = prob * match1$real_x * match2$real_1,
+                        voted = voted * match1$voted_x * match2$voted_1, fails)],
+                 out[,.(sign = paste0(sign, '21'), prob = prob * match1$real_2 * match2$real_1,
+                        voted = voted * match1$voted_2 * match2$voted_1, fails)],
+                 out[,.(sign = paste0(sign, '1x'), prob = prob * match1$real_1 * match2$real_x,
+                        voted  = voted * match1$voted_1 * match2$voted_x, fails)],
+                 out[,.(sign = paste0(sign, 'xx'), prob = prob * match1$real_x * match2$real_x,
+                        voted = voted * match1$voted_x * match2$voted_x, fails)],
+                 out[,.(sign = paste0(sign, '2x'), prob = prob * match1$real_2 * match2$real_x,
+                        voted = voted * match1$voted_2 * match2$voted_x, fails)],
+                 out[,.(sign = paste0(sign, '12'), prob = prob * match1$real_1 * match2$real_2,
+                        voted  = voted * match1$voted_1 * match2$voted_2, fails)],
+                 out[,.(sign = paste0(sign, 'x2'), prob = prob * match1$real_x * match2$real_2,
+                        voted = voted * match1$voted_x * match2$voted_2, fails)],
+                 out[,.(sign = paste0(sign, '22'), prob = prob * match1$real_2 * match2$real_2,
+                        voted = voted * match1$voted_2 * match2$voted_2, fails)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, '11'), prob = prob * (match1$real_no_1 * match2$real_1 + match1$real_1 * match2$real_no_1),
+                                      voted = voted * (match1$voted_no_1 * match2$voted_1 + match1$voted_1 * match2$voted_no_1), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, 'x1'), prob = prob * (match1$real_no_x * match2$real_1 + match1$real_x * match2$real_no_1),
+                                      voted = voted * (match1$voted_no_x * match2$voted_1 + match1$voted_x * match2$voted_no_1), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, '21'), prob = prob * (match1$real_no_2 * match2$real_1 + match1$real_2 * match2$real_no_1),
+                                      voted = voted * (match1$voted_no_2 * match2$voted_1 + match1$voted_2 * match2$voted_no_1), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, '1x'), prob = prob * (match1$real_no_1 * match2$real_x + match1$real_1 * match2$real_no_x),
+                                      voted = voted * (match1$voted_no_1 * match2$voted_x + match1$voted_1 * match2$voted_no_x), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, 'xx'), prob = prob * (match1$real_no_x * match2$real_x + match1$real_x * match2$real_no_x),
+                                      voted = voted * (match1$voted_no_x * match2$voted_x + match1$voted_x * match2$voted_no_x), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, '2x'), prob = prob * (match1$real_no_2 * match2$real_x + match1$real_2 * match2$real_no_x),
+                                      voted = voted * (match1$voted_no_2 * match2$voted_x + match1$voted_2 * match2$voted_no_x), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, '12'), prob = prob * (match1$real_no_1 * match2$real_2 + match1$real_1 * match2$real_no_2),
+                                      voted = voted * (match1$voted_no_1 * match2$voted_2 + match1$voted_1 * match2$voted_no_2), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, 'x2'), prob = prob * (match1$real_no_x * match2$real_2 + match1$real_x * match2$real_no_2),
+                                      voted = voted * (match1$voted_no_x * match2$voted_2 + match1$voted_x * match2$voted_no_2), fails = fails + 1)],
+                 out_allowed_1_fails[,.(sign = paste0(sign, '22'), prob = prob * (match1$real_no_2 * match2$real_2 + match1$real_2 * match2$real_no_2),
+                                      voted = voted * (match1$voted_no_2 * match2$voted_2 + match1$voted_2 * match2$voted_no_2), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, '11'), prob = prob * (match1$real_no_1 * match2$real_no_1 + match1$real_no_1 * match2$real_no_1),
+                                      voted = voted * (match1$voted_no_1 * match2$voted_1 + match1$voted_1 * match2$voted_no_1), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, 'x1'), prob = prob * (match1$real_no_x * match2$real_no_1 + match1$real_no_x * match2$real_no_1),
+                                      voted = voted * (match1$voted_no_x * match2$voted_1 + match1$voted_x * match2$voted_no_1), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, '21'), prob = prob * (match1$real_no_2 * match2$real_no_1 + match1$real_no_2 * match2$real_no_1),
+                                      voted = voted * (match1$voted_no_2 * match2$voted_1 + match1$voted_2 * match2$voted_no_1), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, '1x'), prob = prob * (match1$real_no_1 * match2$real_no_x + match1$real_no_1 * match2$real_no_x),
+                                      voted = voted * (match1$voted_no_1 * match2$voted_x + match1$voted_1 * match2$voted_no_x), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, 'xx'), prob = prob * (match1$real_no_x * match2$real_no_x + match1$real_no_x * match2$real_no_x),
+                                      voted = voted * (match1$voted_no_x * match2$voted_x + match1$voted_x * match2$voted_no_x), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, '2x'), prob = prob * (match1$real_no_2 * match2$real_no_x + match1$real_no_2 * match2$real_no_x),
+                                      voted = voted * (match1$voted_no_2 * match2$voted_x + match1$voted_2 * match2$voted_no_x), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, '12'), prob = prob * (match1$real_no_1 * match2$real_no_2 + match1$real_no_1 * match2$real_no_2),
+                                      voted = voted * (match1$voted_no_1 * match2$voted_2 + match1$voted_1 * match2$voted_no_2), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, 'x2'), prob = prob * (match1$real_no_x * match2$real_no_2 + match1$real_no_x * match2$real_no_2),
+                                      voted = voted * (match1$voted_no_x * match2$voted_2 + match1$voted_x * match2$voted_no_2), fails = fails + 1)],
+                 out_allowed_2_fails[,.(sign = paste0(sign, '22'), prob = prob * (match1$real_no_2 * match2$real_no_2 + match1$real_no_2 * match2$real_no_2),
+                                      voted = voted * (match1$voted_no_2 * match2$voted_2 + match1$voted_2 * match2$voted_no_2), fails = fails + 1)]
+    )
+
+    out <-out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
+
+    if(this_id != end_id){
+      return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
+    }else{
+      return <- out
+    }
+
+    return(return)
+
   }
-  
-  
+
   # First iteration
   if(this_id == start_id){
-    
-    if(allow_fails == 0){
-      
-      out <- rbind(data.table(sign = '1', prob = this_match$real_1,
-                                     voted = this_match$voted_1, fails = 0), 
-                          data.table(sign = 'x', prob = this_match$real_x,
-                                     voted = this_match$voted_x, fails = 0),
-                          data.table(sign = '2', prob = this_match$real_2, 
-                                     voted = this_match$voted_2, fails = 0))
-      
-      out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-      return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
-    
-    } else {
-      
-      out <- rbind(data.table(sign = '1', prob = this_match$real_1,
-                                     voted = this_match$voted_1, fails = 0),
-                          data.table(sign = 'x', prob = this_match$real_x,
-                                     voted = this_match$voted_x, fails = 0),
-                          data.table(sign = '2', prob = this_match$real_2, 
-                                     voted = this_match$voted_2, fails = 0),
-                          data.table(sign = '1', prob = this_match$real_no_1,
-                                     voted = this_match$voted_no_1, fails = 1), 
-                          data.table(sign = 'x', prob = this_match$real_no_x,
-                                     voted = this_match$voted_no_x, fails = 1),
-                          data.table(sign = '2', prob = this_match$real_no_2, 
-                                     voted = this_match$voted_no_2, fails = 1))
 
-      out <- out[,.(prob = sum(prob), voted = sum(voted)), by=.(fails, sign)]
-      return <- get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails)
-      
+    out <- rbind(data.table(sign = '11', prob = match1$real_1 * match2$real_1,
+                            voted = match1$voted_1 * match2$voted_1, fails = 0),
+                 data.table(sign = 'x1', prob = match1$real_x * match2$real_1,
+                            voted = match1$voted_x * match2$voted_1, fails = 0),
+                 data.table(sign = '21', prob = match1$real_2 * match2$real_1,
+                              voted = match1$voted_2 * match2$voted_1, fails = 0),
+                 data.table(sign = '1x', prob = match1$real_1 * match2$real_x,
+                            voted = match1$voted_1 * match2$voted_x, fails = 0),
+                 data.table(sign = 'xx', prob = match1$real_x * match2$real_x,
+                            voted = match1$voted_x * match2$voted_x, fails = 0),
+                 data.table(sign = '2x', prob = match1$real_2 * match2$real_x,
+                            voted = match1$voted_2 * match2$voted_x, fails = 0),
+                 data.table(sign = '12', prob = match1$real_1 * match2$real_2,
+                            voted = match1$voted_1  * match2$voted_2, fails = 0),
+                 data.table(sign = 'x2', prob = match1$real_x * match2$real_2,
+                            voted = match1$voted_x * match2$voted_2, fails = 0),
+                 data.table(sign = '22', prob = match1$real_2 * match2$real_2,
+                            voted = match1$voted_2 * match2$voted_2, fails = 0))
+    if(allow_fails > 0){
+      out <- rbind(out, data.table(sign = '11', prob = match1$real_1 * match2$real_no_1 + match1$real_no_1 * match2$real_1,
+                              voted = match1$voted_1 * match2$voted_no_1 + match1$voted_no_1 * match2$voted_1, fails = 1),
+                   data.table(sign = 'x1', prob = match1$real_x * match2$real_no_1 + match1$real_no_x * match2$real_1,
+                              voted = match1$voted_x * match2$voted_no_1 + match1$voted_no_x * match2$voted_1, fails = 1),
+                   data.table(sign = '21', prob = match1$real_2 * match2$real_no_1 + match1$real_no_2 * match2$real_1,
+                              voted = match1$voted_2 * match2$voted_no_1 + match1$voted_no_2 * match2$voted_1, fails = 1),
+                   data.table(sign = '1x', prob = match1$real_1 * match2$real_no_x + match1$real_no_1 * match2$real_x,
+                              voted = match1$voted_1 * match2$voted_no_x + match1$voted_no_1 * match2$voted_x, fails = 1),
+                   data.table(sign = 'xx', prob = match1$real_x * match2$real_no_x + match1$real_no_x * match2$real_x,
+                              voted = match1$voted_x * match2$voted_no_x + match1$voted_no_x * match2$voted_x, fails = 1),
+                   data.table(sign = '2x', prob = match1$real_2 * match2$real_no_x + match1$real_no_2 * match2$real_x,
+                              voted = match1$voted_2 * match2$voted_no_x + match1$voted_no_2 * match2$voted_x, fails = 1),
+                   data.table(sign = '12', prob = match1$real_1 * match2$real_no_2 + match1$real_no_1 * match2$real_2,
+                              voted = match1$voted_1 * match2$voted_no_2 + match1$voted_no_1 * match2$voted_2, fails = 1),
+                   data.table(sign = 'x2', prob = match1$real_x * match2$real_no_2 + match1$real_no_x * match2$real_2,
+                              voted = match1$voted_x * match2$voted_no_2 + match1$voted_no_x * match2$voted_2, fails = 1),
+                   data.table(sign = '22', prob = match1$real_2 * match2$real_no_2 + match1$real_no_2 * match2$real_2,
+                              voted = match1$voted_2 * match2$voted_no_2 + match1$voted_no_2 * match2$voted_2, fails = 1))
     }
-    
-    return(return)
-    
+    if(allow_fails > 1){
+          out <- rbind(out,
+                       data.table(sign = '11', prob = match1$real_no_1 * match2$real_no_1,
+                                  voted = match1$voted_no_1 * match2$voted_no_1, fails = 2),
+                       data.table(sign = 'x1', prob = match1$real_no_x * match2$real_no_1,
+                                  voted = match1$voted_no_x * match2$voted_no_1, fails = 2),
+                       data.table(sign = '21', prob = match1$real_no_2 * match2$real_no_1,
+                                  voted = match1$voted_no_2 * match2$voted_no_1, fails = 2),
+                       data.table(sign = '1x', prob = match1$real_no_1 * match2$real_no_x,
+                                  voted = match1$voted_no_1 * match2$voted_no_x, fails = 2),
+                       data.table(sign = 'xx', prob = match1$real_no_x * match2$real_no_x,
+                                  voted = match1$voted_no_x * match2$voted_no_x, fails = 2),
+                       data.table(sign = '2x', prob = match1$real_no_2 * match2$real_no_x,
+                                  voted = match1$voted_no_2 * match2$voted_no_x, fails = 2),
+                       data.table(sign = '12', prob = match1$real_no_1 * match2$real_no_2,
+                                  voted = match1$voted_no_1  * match2$voted_no_1, fails = 2),
+                       data.table(sign = 'x2', prob = match1$real_no_x * match2$real_no_2,
+                                  voted = match1$voted_no_x * match2$voted_no_2, fails = 2),
+                       data.table(sign = '22', prob = match1$real_no_2 * match2$real_no_1,
+                                  voted = match1$voted_no_2 * match2$voted_no_2, fails = 2))
+    }
+
+    return(get_voted_prob(matches, out = out, this_id = next_id, allow_fails = allow_fails))
+
   }
-  
+
 }
 
 
