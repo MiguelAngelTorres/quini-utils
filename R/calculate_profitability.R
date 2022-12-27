@@ -34,7 +34,7 @@ get_profitability <- function(prob_voted_table, importance = 1.0){
                          prof_11 = (prob_11 ^ importance) / voted_11,
                          prof_10 = (prob_10 ^ importance) / voted_10)]
 
-  prob_voted_table[,':='(rent = prof_14 * (0.16^importance) +
+  prob_voted_table[,':='(prof = prof_14 * (0.16^importance) +
     prof_13 * (0.075^importance) +
     prof_12 * (0.075^importance) +
     prof_11 * (0.075^importance) +
