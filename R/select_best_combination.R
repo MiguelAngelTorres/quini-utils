@@ -69,7 +69,6 @@ is_diff_sign <- function(data, selected, new, min_diff, total_diff){
 #'
 best_n_with_diff <- function(data, nsigns, diff){
   
-  
   sp_fun <- splinefun(x = c(1,nsigns/5, nsigns*4/5, nsigns), y = c(diff,diff+1,min(nsigns+2, 13),min(nsigns+2, 13)),
                       method = c( "monoH.FC"))
   
