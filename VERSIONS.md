@@ -3,6 +3,7 @@
 
 ## Future version
 Features:
+- Added new function to get the real and voted probability of any year and bet: **get_data_eduardolosilla()**.
 - Added the **parameter allow_lower_fails in function signs_with_distance()**
 - **Reduced time costs** in function filter_possible_results()
 - **Reduced time costs** in function calculate_probability_of_reward()

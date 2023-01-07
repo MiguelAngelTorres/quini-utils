@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_matches.R
 \name{get_data_quinielaticas}
 \alias{get_data_quinielaticas}
-\title{Scrapper function to get matches data}
+\title{Scrapper function to get matches data from quinielaticas's web}
 \usage{
 get_data_quinielaticas(url)
 }
@@ -19,7 +19,8 @@ and returns the real and voted info for each match.
 \details{
 Note that the scrapper is only expecting the 'https://quinielaticas.com/' or
 'https://quinielaticas.com/analisis-de-la-proxima-jornada-de-la-quiniela/' html
-depends on if you prefer this week or next week matches.
+depends on if you prefer this week or next week matches. If you are interested
+in older information, use get_data_eduardolosilla function instead.
 }
 \examples{
 \dontrun{

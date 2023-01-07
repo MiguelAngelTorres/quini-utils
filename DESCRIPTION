@@ -14,7 +14,8 @@ Imports:
     data.table,
     rvest,
     stats,
-    stringr
+    stringr,
+    xml2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 NeedsCompilation: yes
