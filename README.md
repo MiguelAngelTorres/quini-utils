@@ -4,7 +4,7 @@ R library to perform better on quiniela bets.
 
 ## Install
 Install last version from github
-> install_github("MiguelAngelTorres/quini-utils", auth_token = read.csv('git_token.txt', header = FALSE)$V1, force = TRUE)
+> install_github("MiguelAngelTorres/quini-utils", auth_token = ***, force = TRUE)
 
 
 
