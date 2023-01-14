@@ -77,6 +77,7 @@ get_data_quinielaticas <- function(url){
 #' @export
 #' @import data.table
 #' @import xml2
+#' @import XML
 #'
 get_data_eduardolosilla <- function(temporada, jornada){
 
