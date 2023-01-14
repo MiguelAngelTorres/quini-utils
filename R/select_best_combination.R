@@ -69,26 +69,45 @@ is_diff_sign <- function(data, selected, new, min_diff, total_diff){
 #'
 best_n_with_diff <- function(data, nsigns, diff){
   
+  signs <- data[,.(sign)]
   sp_fun <- splinefun(x = c(1,nsigns/5, nsigns*4/5, nsigns), y = c(diff,diff+1,min(nsigns+2, 13),min(nsigns+2, 13)),
                       method = c( "monoH.FC"))
-  
-  selected <- c(1)
-  
-  for(i in 1:nrow(data)){
-    
+
+  selected <- 1
+  signs_to_remove = signs_with_distance(mysign = signs[1]$sign, dist=diff-1, allow_lower_fails = TRUE)$sign
+  dont_take <- sort(chmatch(signs_to_remove, signs$sign))
+
+  new_index = which(dont_take != (1:length(dont_take)))[1]
+  while(length(selected) < nsigns){
+
+    new_sign <- signs[new_index]$sign
+
     take = TRUE
-    take = take & (is_diff_sign(data = data, selected = selected, new = i, min_diff = diff, total_diff = floor(sp_fun(length(selected)))))
+    diffs = rep(FALSE, 14)
+    vectornew <- unlist(strsplit(new_sign, split=""))
+
+    for(selected_sign in signs[selected]$sign){
+      vectorTested <- unlist(strsplit(selected_sign, split=""))
+      this_diff = (vectorTested != vectornew)
+
+      diffs = Reduce("|", list(diffs, this_diff))
+    }
+
+    take = take & (sum(diffs) >= floor(sp_fun(length(selected))))
+
 
     if(take){
-      selected <- c(selected, i)
-      print(i)
+      selected <- c(selected, new_index)
+      signs_to_remove <- signs_with_distance(mysign = new_sign, dist=diff-1, allow_lower_fails = TRUE)$sign
+      dont_take <- sort(unique(c(dont_take, new_index - 1 + chmatch(signs_to_remove, signs[(new_index):(new_index+nsigns*length(signs_to_remove)+2)]$sign))))
+    }else{
+      dont_take <- sort(c(dont_take, new_index))
     }
-    
-    if(length(selected) == nsigns){
-      break()
-    }
+
+    new_index <- match(TRUE,dont_take != (1:length(dont_take)))
+
   }
-  
+
   return(data[selected])
 }
 
