@@ -99,7 +99,7 @@ best_n_with_diff <- function(data, nsigns, diff){
     if(take){
       selected <- c(selected, new_index)
       signs_to_remove <- signs_with_distance(mysign = new_sign, dist=diff-1, allow_lower_fails = TRUE)$sign
-      dont_take <- sort(unique(c(dont_take, new_index - 1 + chmatch(signs_to_remove, signs[(new_index):(new_index+nsigns*length(signs_to_remove)+2)]$sign))))
+      dont_take <- sort(unique(c(dont_take, new_index - 1 + chmatch(signs_to_remove, signs[(new_index):min(4782969, new_index+nsigns*length(signs_to_remove)+2)]$sign))))
     }else{
       dont_take <- sort(c(dont_take, new_index))
     }
