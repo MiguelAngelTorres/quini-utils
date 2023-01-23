@@ -35,3 +35,34 @@ read_bet <- function(path){
 
   return(bets)
 }
+
+
+
+#' Write a file with bets
+#'
+#' The file will be a .txt file with one bet per row.
+#'
+#' A valid example of file.txt with 3 bets would be:
+#' 1111111111111102
+#' 1211111111111102
+#' 11111111111X11M2
+#'
+#' @param bet (vector of strings): The list of bets to write
+#' @param path (string): The path where the file will be located
+#'
+#'
+#' @examples
+#' \dontrun{
+#' bet = c('1111111111111102', '11111111111X11M2')
+#' write_bet(bet, "file.txt")
+#' }
+#'
+#'
+#' @export
+#' @import data.table
+#'
+write_bet <- function(bet, path){
+  fileConn<-file(path)
+  writeLines(bets, fileConn)
+  close(fileConn)
+}
