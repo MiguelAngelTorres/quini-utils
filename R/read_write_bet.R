@@ -63,6 +63,6 @@ read_bet <- function(path){
 #'
 write_bet <- function(bet, path){
   fileConn<-file(path)
-  writeLines(bets, fileConn)
+  writeLines(bet, fileConn)
   close(fileConn)
 }
