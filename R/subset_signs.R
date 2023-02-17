@@ -139,3 +139,37 @@ filter_possible_results <- function(prob_voted_table, results) {
 
   return(all_table)
 }
+
+
+
+#' Filter the prob_voted_table with specified results in matches
+#'
+#' Given a set of matches which result is already known, it returns
+#' the filtered prob_voted_table with only the results that
+#' satisfy the specified signs.
+#'
+#'
+#' @param prob_voted_table (data.table): a table with a column sign that represents all bets to filter.
+#' @param matches (list of integers): A list with n integer numbers where the results are applied.
+#' @param results (list of characters): A list with n signs to filter.
+#'
+#' @return possible_results (data.table): The prob_voted_table filtered with the specified results in matches
+#'
+#' @examples
+#' library(data.table)
+#' my_table <- data.table(sign = c('x1111111111111', '11111111111111'))
+#' filtered_table <- filter_table_prob(my_table, c(1), 'x')
+#'
+#' @export
+#' @import data.table
+#'
+filter_table_prob <- function(prob_voted_table, matches, results){
+
+  tab = prob_voted_table
+
+  for(i in c(1:length(matches))){
+    tab = tab[substr(sign, match[i], match[i]) == results[i]]
+  }
+
+  return(tab)
+}
