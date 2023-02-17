@@ -5,6 +5,7 @@
 Features:
 - Added new function to get the real and voted probability of any year and bet: **get_data_eduardolosilla()**.
 - Added new function to write bets in file: **write_bet()**.
+- Added new function to perform simple filters over prob_voted_table: **filter_table_prob()**.
 - Added the **parameter allow_lower_fails in function signs_with_distance()**
 - **Reduced time costs** in function filter_possible_results()
 - **Reduced time costs** in function calculate_probability_of_reward()
