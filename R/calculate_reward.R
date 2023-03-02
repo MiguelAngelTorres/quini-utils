@@ -153,6 +153,9 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
                                         num_prizes_12 * reward_12 + num_prizes_11 * reward_11 +
                                         num_prizes_10 * reward_10)]
 
+  possible_results[,':='(num_prizes_14 = NULL, num_prizes_13 = NULL, num_prizes_12 = NULL,
+                         num_prizes_11 = NULL, num_prizes_10 = NULL)]
+
   total_prob = sum(possible_results$prob_14)
   filter_rewards <- function(reward) {
     sum(possible_results[,.(prob = prob_14/total_prob, total_reward)][total_reward>reward]$prob)
