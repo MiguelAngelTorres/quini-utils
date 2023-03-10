@@ -4,26 +4,38 @@
 \alias{filter_table_prob}
 \title{Filter the prob_voted_table with specified results in matches}
 \usage{
-filter_table_prob(prob_voted_table, matches, results)
+filter_table_prob(
+  prob_voted_table,
+  matches,
+  result = c(),
+  lower_bound = as.numeric(NA),
+  upper_bound = as.numeric(NA)
+)
 }
 \arguments{
 \item{prob_voted_table}{(data.table): a table with a column sign that represents all bets to filter.}
 
 \item{matches}{(list of integers): A list with n integer numbers where the results are applied.}
 
-\item{results}{(list of characters): A list with n signs to filter.}
+\item{result}{(list of characters): A list with n signs to filter.}
+
+\item{lower_bound}{(integer): Minimum number of appearances of result within the matches.}
+
+\item{upper_bound}{(integer):  Maximum number of appearances of result within the matches.}
 }
 \value{
 possible_results (data.table): The prob_voted_table filtered with the specified results in matches
 }
 \description{
-Given a set of matches which result is already known, it returns
-the filtered prob_voted_table with only the results that
-satisfy the specified signs.
+This function can be used in two ways:
+\itemize{
+\item giving a set of matches and the results that must have at each match (length(matches) == length(result))
+\item giving a set of matches where a sign must appear n times with lower_bound <= n <= upper_bound (length(result) == 1)
+}
 }
 \examples{
 library(data.table)
 my_table <- data.table(sign = c('x1111111111111', '11111111111111'))
-filtered_table <- filter_table_prob(my_table, c(1), 'x')
+filtered_table <- filter_table_prob(my_table, c(1, 4), c('x', '1')))
 
 }

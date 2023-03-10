@@ -144,31 +144,44 @@ filter_possible_results <- function(prob_voted_table, results) {
 
 #' Filter the prob_voted_table with specified results in matches
 #'
-#' Given a set of matches which result is already known, it returns
-#' the filtered prob_voted_table with only the results that
-#' satisfy the specified signs.
+#' This function can be used in two ways:
+#' - giving a set of matches and the results that must have at each match (length(matches) == length(result))
+#' - giving a set of matches where a sign must appear n times with lower_bound <= n <= upper_bound (length(result) == 1)
 #'
 #'
 #' @param prob_voted_table (data.table): a table with a column sign that represents all bets to filter.
 #' @param matches (list of integers): A list with n integer numbers where the results are applied.
-#' @param results (list of characters): A list with n signs to filter.
+#' @param result (list of characters): A list with n signs to filter.
+#' @param lower_bound (integer): Minimum number of appearances of result within the matches.
+#' @param upper_bound (integer):  Maximum number of appearances of result within the matches.
 #'
 #' @return possible_results (data.table): The prob_voted_table filtered with the specified results in matches
 #'
 #' @examples
 #' library(data.table)
 #' my_table <- data.table(sign = c('x1111111111111', '11111111111111'))
-#' filtered_table <- filter_table_prob(my_table, c(1), 'x')
+#' filtered_table <- filter_table_prob(my_table, c(1, 4), c('x', '1')))
 #'
 #' @export
 #' @import data.table
 #'
-filter_table_prob <- function(prob_voted_table, matches, results){
+filter_table_prob <- function(prob_voted_table, matches, result = c(), lower_bound = as.numeric(NA), upper_bound = as.numeric(NA)){
 
   tab = prob_voted_table
 
-  for(i in c(1:length(matches))){
-    tab = tab[substr(sign, match[i], match[i]) == results[i]]
+  if(is.na(lower_bound) & is.na(upper_bound)){
+    for(i in c(1:length(matches))){
+      tab = tab[substr(sign, matches[i], matches[i]) == result[i]]
+    }
+  }else{
+      if(!is.na(lower_bound)){
+        eval(parse(text=paste0("tab = tab[",paste0("(substr(sign,", matches,",", matches, ") == ", result,")" ,
+                             collapse = "+"), " >= ", lower_bound,"]")))
+      }
+      if(!is.na(upper_bound)){
+        eval(parse(text=paste0("tab = tab[",paste0("(substr(sign,", matches,",", matches, ") == ", result,")" ,
+                             collapse = "+"), " <= ", upper_bound,"]")))
+      }
   }
 
   return(tab)
