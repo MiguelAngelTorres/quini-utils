@@ -17,7 +17,8 @@ filter_table_prob(
 
 \item{matches}{(list of integers): A list with n integer numbers where the results are applied.}
 
-\item{result}{(list of characters): A list with n signs to filter.}
+\item{result}{(list of characters): A list with n signs to filter. A sign could be composed by one or two
+characters, for example, '1x' mean that sign is 1 or x.}
 
 \item{lower_bound}{(integer): Minimum number of appearances of result within the matches.}
 
@@ -36,6 +37,6 @@ This function can be used in two ways:
 \examples{
 library(data.table)
 my_table <- data.table(sign = c('x1111111111111', '11111111111111'))
-filtered_table <- filter_table_prob(my_table, c(1, 4), c('x', '1')))
+filtered_table <- filter_table_prob(my_table, c(1, 4), c('1x', '1')))
 
 }

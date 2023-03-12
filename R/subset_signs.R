@@ -151,7 +151,8 @@ filter_possible_results <- function(prob_voted_table, results) {
 #'
 #' @param prob_voted_table (data.table): a table with a column sign that represents all bets to filter.
 #' @param matches (list of integers): A list with n integer numbers where the results are applied.
-#' @param result (list of characters): A list with n signs to filter.
+#' @param result (list of characters): A list with n signs to filter. A sign could be composed by one or two
+#' characters, for example, '1x' mean that sign is 1 or x.
 #' @param lower_bound (integer): Minimum number of appearances of result within the matches.
 #' @param upper_bound (integer):  Maximum number of appearances of result within the matches.
 #'
@@ -160,7 +161,7 @@ filter_possible_results <- function(prob_voted_table, results) {
 #' @examples
 #' library(data.table)
 #' my_table <- data.table(sign = c('x1111111111111', '11111111111111'))
-#' filtered_table <- filter_table_prob(my_table, c(1, 4), c('x', '1')))
+#' filtered_table <- filter_table_prob(my_table, c(1, 4), c('1x', '1')))
 #'
 #' @export
 #' @import data.table
@@ -171,15 +172,18 @@ filter_table_prob <- function(prob_voted_table, matches, result = c(), lower_bou
 
   if(is.na(lower_bound) & is.na(upper_bound)){
     for(i in c(1:length(matches))){
-      tab = tab[substr(sign, matches[i], matches[i]) == result[i]]
+      eval(parse(text=paste0("tab = tab[ ",paste0("(substr(sign, matches[i], matches[i]) %in% c('",
+                                                  paste0(unlist(strsplit(result[i], split = "")), collapse = "','"),"')"), ")]")))
     }
   }else{
       if(!is.na(lower_bound)){
-        eval(parse(text=paste0("tab = tab[",paste0("(substr(sign,", matches,",", matches, ") == ", result,")" ,
+        eval(parse(text=paste0("tab = tab[",paste0("(substr(sign,", matches,",", matches, ") %in% c('",
+                                                   paste0(unlist(strsplit(result, split = "")),collapse="','"),"'))" ,
                              collapse = "+"), " >= ", lower_bound,"]")))
       }
       if(!is.na(upper_bound)){
-        eval(parse(text=paste0("tab = tab[",paste0("(substr(sign,", matches,",", matches, ") == ", result,")" ,
+        eval(parse(text=paste0("tab = tab[",paste0("(substr(sign,", matches,",", matches, ") %in% c('",
+                                                   paste0(unlist(strsplit(result, split = "")),collapse="','"),"'))" ,
                              collapse = "+"), " <= ", upper_bound,"]")))
       }
   }
