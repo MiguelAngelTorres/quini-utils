@@ -67,8 +67,8 @@ is_diff_sign <- function(data, selected, new, min_diff, total_diff){
 #' @import data.table
 #' @import stats
 #'
-best_n_with_diff <- function(data, nsigns, diff){
-  
+best_n_with_diff_test <- function(data, nsigns, diff){
+
   signs <- data[,.(sign)]
   sp_fun <- splinefun(x = c(1,nsigns/5, nsigns*4/5, nsigns), y = c(diff,diff+1,min(nsigns+2, 13),min(nsigns+2, 13)),
                       method = c( "monoH.FC"))
@@ -77,7 +77,11 @@ best_n_with_diff <- function(data, nsigns, diff){
   signs_to_remove = signs_with_distance(mysign = signs[1]$sign, dist=diff-1, allow_lower_fails = TRUE)$sign
   dont_take <- sort(chmatch(signs_to_remove, signs$sign))
 
-  new_index = which(dont_take != (1:length(dont_take)))[1]
+  new_index <- match(TRUE,dont_take != (1:length(dont_take)))
+  if(is.na(new_index)){
+    new_index <- length(dont_take) + 1
+  }
+
   while(length(selected) < nsigns){
 
     new_sign <- signs[new_index]$sign
@@ -105,12 +109,13 @@ best_n_with_diff <- function(data, nsigns, diff){
     }
 
     new_index <- match(TRUE,dont_take != (1:length(dont_take)))
+    if(is.na(new_index)){
+      new_index <- length(dont_take) + 1
+    }
+
 
   }
 
   return(data[selected])
 }
-
-
-
 
