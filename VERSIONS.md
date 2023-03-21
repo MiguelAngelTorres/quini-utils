@@ -11,6 +11,7 @@ Features:
 - **Reduced time costs** in function calculate_probability_of_reward()
 - **Reduced time costs** in function get_voted_prob()
 - **Reduced time costs** in function best_n_with_diff()
+- **Reduced time costs** in function sign_with_diff()
 
 Changes:
 - **get_rentability() has been renamed**. Now the function is called get_profitability().
