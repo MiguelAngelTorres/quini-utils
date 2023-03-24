@@ -3,6 +3,12 @@
 
 ## Future version
 
+Features:
+
+Changes:
+
+Small bugfixes:
+
 
 ## 1.1.0
 
