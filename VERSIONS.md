@@ -2,6 +2,10 @@
 # Historical versions
 
 ## Future version
+
+
+## 1.1.0
+
 Features:
 - Added new function to get the real and voted probability of any year and bet: **get_data_eduardolosilla()**.
 - Added new function to write bets in file: **write_bet()**.
