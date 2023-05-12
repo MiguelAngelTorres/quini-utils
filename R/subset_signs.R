@@ -108,7 +108,7 @@ signs_with_distance <- function(out_sign, out_fail, this_id = 1, dist, allow_low
                     paste0(this_sign_1, signs_not_2[1]),
                     paste0(this_sign_1, signs_not_2[2]),
                     paste0(signs_not_1[1], this_sign_2),
-                    paste0(signs_not_2[2], this_sign_2))
+                    paste0(signs_not_1[2], this_sign_2))
 
       out_fail <- c(out_fail, 1, 1, 1, 1)
 
@@ -118,7 +118,7 @@ signs_with_distance <- function(out_sign, out_fail, this_id = 1, dist, allow_low
                     paste0(signs_not_1[1], signs_not_2[1]),
                     paste0(signs_not_1[2], signs_not_2[1]),
                     paste0(signs_not_1[1], signs_not_2[2]),
-                    paste0(signs_not_2[2], signs_not_2[2]))
+                    paste0(signs_not_1[2], signs_not_2[2]))
 
       out_fail <- c(out_fail, 2, 2, 2, 2)
     }
