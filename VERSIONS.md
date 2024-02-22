@@ -4,6 +4,7 @@
 ## Future version
 
 Features:
+- **Reduced time costs** in function calculate_probability_of_reward()
 
 Changes:
 
