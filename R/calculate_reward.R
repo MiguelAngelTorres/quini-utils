@@ -130,13 +130,10 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
 
   for(i in c(1:dim_played)){
     prizes <- signs_with_distance(this_id = 1, dist = 4, allow_lower_fails = TRUE, mysign = played[i]$sign)[,.(sign, fails, conteo = 1)]
-    total_prizes <- rbind(prizes, total_prizes)[,.(conteo = sum(conteo)),by=.(sign,fails)]
-
-    total_prizes <- total_prizes[,.(conteo = sum(conteo)),by=.(sign,fails)]
-
+    total_prizes <- rbindlist(list(prizes, total_prizes))[,.(conteo = sum(conteo)),by=.(sign,fails)]
   }
 
-  total_prizes = dcast(total_prizes, sign ~ fails, value.var=c("conteo"))
+  total_prizes <- dcast(total_prizes, sign ~ fails, value.var=c("conteo"))
 
   possible_results[total_prizes, on=.(sign), ':='(num_prizes_14 = i.0, num_prizes_13 = i.1, num_prizes_12 = i.2,
                                                   num_prizes_11 = i.3, num_prizes_10 = i.4)]
@@ -161,9 +158,9 @@ calculate_probability_of_reward <- function(prob_voted_table, played, results, r
     sum(possible_results[,.(prob = prob_14/total_prob, total_reward)][total_reward>reward]$prob)
   }
 
-  probs = lapply(rewards, FUN = filter_rewards)
+  probs <- lapply(rewards, FUN = filter_rewards)
 
-  return(data.table(prob_reward = as.numeric(probs) , reward = rewards))
+  return(data.table(prob_reward = as.numeric(probs), reward = rewards))
 
 }
 

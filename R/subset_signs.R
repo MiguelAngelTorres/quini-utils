@@ -31,95 +31,59 @@
 #'
 signs_with_distance <- function(out_sign, out_fail, this_id = 1, dist, allow_lower_fails=FALSE, mysign){
 
-  next_id <- this_id+2
+  next_id <- this_id + 2
 
   this_sign_1 <- unlist(strsplit(mysign, ""))[this_id]
-  this_sign_2 <- unlist(strsplit(mysign, ""))[this_id+1]
-  signs_not <- c('1','x','2')
+  this_sign_2 <- unlist(strsplit(mysign, ""))[this_id + 1]
+  signs_not <- c("1", "x", "2")
   signs_not_1 <- signs_not[!signs_not %in% this_sign_1]
   signs_not_2 <- signs_not[!signs_not %in% this_sign_2]
 
-  if(this_id != 1){
+  if (this_id != 1) {
+    mask_1_fail <- out_fail < dist
+    mask_2_fail <- out_fail < dist - 1
 
-    mask_1_fail = out_fail < dist
-    mask_2_fail = out_fail < dist - 1
     out_allowed_1_sign <- out_sign[mask_1_fail]
-    out_allowed_1_fails <- out_fail[mask_1_fail]
+    out_allowed_1_fails <- out_fail[mask_1_fail] + 1
     out_allowed_2_sign <- out_sign[mask_2_fail]
-    out_allowed_2_fails <- out_fail[mask_2_fail]
-
+    out_allowed_2_fails <- out_fail[mask_2_fail] + 2
     out_sign <- paste0(out_sign, this_sign_1, this_sign_2)
 
-    if(length(out_allowed_1_sign) > 0){
-
-      out_sign <- c(out_sign,
-                    paste0(out_allowed_1_sign,signs_not_1[1], this_sign_2),
-                    paste0(out_allowed_1_sign,signs_not_1[2], this_sign_2),
-                    paste0(out_allowed_1_sign,this_sign_1, signs_not_2[1]),
-                    paste0(out_allowed_1_sign,this_sign_1, signs_not_2[2]))
-
-      out_fail <- c(out_fail,
-                    out_allowed_1_fails + 1,
-                    out_allowed_1_fails + 1,
-                    out_allowed_1_fails + 1,
-                    out_allowed_1_fails + 1)
-
+    if (length(out_allowed_1_sign) > 0) {
+      out_sign <- c(out_sign, paste0(out_allowed_1_sign, signs_not_1[1], this_sign_2), paste0(out_allowed_1_sign, signs_not_1[2], this_sign_2), paste0(out_allowed_1_sign, this_sign_1, signs_not_2[1]), paste0(out_allowed_1_sign, this_sign_1, signs_not_2[2]))
+      out_fail <- c(out_fail, out_allowed_1_fails, out_allowed_1_fails, out_allowed_1_fails, out_allowed_1_fails)
     }
 
-    if(length(out_allowed_2_sign) > 0){
-
-      out_sign <- c(out_sign,
-                    paste0(out_allowed_2_sign,signs_not_1[1], signs_not_2[1]),
-                    paste0(out_allowed_2_sign,signs_not_1[2], signs_not_2[1]),
-                    paste0(out_allowed_2_sign,signs_not_1[1], signs_not_2[2]),
-                    paste0(out_allowed_2_sign,signs_not_1[2], signs_not_2[2]))
-
-      out_fail <- c(out_fail,
-                    out_allowed_2_fails + 2,
-                    out_allowed_2_fails + 2,
-                    out_allowed_2_fails + 2,
-                    out_allowed_2_fails + 2)
-
+    if (length(out_allowed_2_sign) > 0) {
+      out_sign <- c(out_sign, paste0(out_allowed_2_sign, signs_not_1[1], signs_not_2[1]), paste0(out_allowed_2_sign, signs_not_1[2], signs_not_2[1]), paste0(out_allowed_2_sign, signs_not_1[1], signs_not_2[2]), paste0(out_allowed_2_sign, signs_not_1[2], signs_not_2[2]))
+      out_fail <- c(out_fail, out_allowed_2_fails, out_allowed_2_fails, out_allowed_2_fails, out_allowed_2_fails)
     }
 
-    if(this_id == 13){
-      if(allow_lower_fails){
-        mask = out_fail <= dist
+    if (this_id == 13) {
+
+      if (allow_lower_fails) {
+        mask <- out_fail <= dist
         return_sign <- out_sign[mask]
         return_fail <- out_fail[mask]
-      }else{
-        mask = out_fail == dist
+      } else {
+        mask <- out_fail == dist
         return_sign <- out_sign[mask]
         return_fail <- out_fail[mask]
       }
+
       return(data.table(sign = return_sign, fails = return_fail))
-    }else{
+    } else {
       return(signs_with_distance(out_sign = out_sign, out_fail = out_fail, this_id = next_id, dist = dist, allow_lower_fails, mysign))
     }
 
-  }else{
-
+  } else {
     out_sign <- paste0(this_sign_1, this_sign_2)
-    out_fail <- 0
-
-    if(dist >= 1) {
-
-      out_sign <- c(out_sign,
-                    paste0(this_sign_1, signs_not_2[1]),
-                    paste0(this_sign_1, signs_not_2[2]),
-                    paste0(signs_not_1[1], this_sign_2),
-                    paste0(signs_not_1[2], this_sign_2))
-
-      out_fail <- c(out_fail, 1, 1, 1, 1)
-
+    if (dist >= 1) {
+      out_sign <- c(out_sign, paste0(this_sign_1, signs_not_2[1]), paste0(this_sign_1, signs_not_2[2]), paste0(signs_not_1[1], this_sign_2), paste0(signs_not_1[2], this_sign_2))
+      out_fail <- c(0, 1, 1, 1, 1)
     }
-    if(dist >= 2){
-      out_sign <- c(out_sign,
-                    paste0(signs_not_1[1], signs_not_2[1]),
-                    paste0(signs_not_1[2], signs_not_2[1]),
-                    paste0(signs_not_1[1], signs_not_2[2]),
-                    paste0(signs_not_1[2], signs_not_2[2]))
-
+    if (dist >= 2) {
+      out_sign <- c(out_sign, paste0(signs_not_1[1], signs_not_2[1]), paste0(signs_not_1[2], signs_not_2[1]), paste0(signs_not_1[1], signs_not_2[2]), paste0(signs_not_1[2], signs_not_2[2]))
       out_fail <- c(out_fail, 2, 2, 2, 2)
     }
 
